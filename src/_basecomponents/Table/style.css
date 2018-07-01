@@ -1,0 +1,111 @@
+/*Border radius ends here*/
+.app-table {
+  width: 100%; }
+  .app-table table {
+    margin: 0; }
+    .app-table table.table-bordered {
+      border: none; }
+    .app-table table caption {
+      padding: 0 10px;
+      border: inherit;
+      border-bottom: 0;
+      font-size: 20px;
+      text-align: left;
+      position: relative; }
+      .app-table table caption .search {
+        position: relative;
+        width: 300px;
+        display: inline-block;
+        float: right; }
+        .app-table table caption .search input {
+          position: relative;
+          width: 100%;
+          padding-left: 40px;
+          height: 40px;
+          margin-top: 10px;
+          border-radius: 20px;
+          border: 1px solid #EFF0F4; }
+        .app-table table caption .search i, .app-table table caption .search svg {
+          position: absolute;
+          left: 14px;
+          top: 25px;
+          font-size: 14px; }
+      .app-table table caption .icon-list {
+        height: 60px;
+        position: relative;
+        display: inline-block;
+        float: left; }
+        .app-table table caption .icon-list li {
+          display: inline-flex;
+          margin: 0 10px 0 0;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          line-height: 13px;
+          cursor: pointer;
+          height: 60px;
+          -webkit-transition: 400ms all;
+          -moz-transition: 400ms all;
+          -o-transition: 400ms all;
+          transition: 400ms all; }
+          .app-table table caption .icon-list li i, .app-table table caption .icon-list li svg {
+            font-size: 25px;
+            color: rgba(0, 0, 0, 0.4); }
+          .app-table table caption .icon-list li:hover {
+            border-radius: 4px; }
+            .app-table table caption .icon-list li:hover i {
+              color: rgba(0, 0, 0, 0.8); }
+    .app-table table thead tr th {
+      height: 60px;
+      min-height: 30px;
+      vertical-align: middle;
+      padding-left: 10px;
+      border: none;
+      font-size: 8px;
+      text-transform: uppercase;
+      font-weight: bolder;
+      letter-spacing: 1px; }
+      .app-table table thead tr th:first-child {
+        border-left: none; }
+      .app-table table thead tr th.header-icon {
+        border: none; }
+    .app-table table tbody tr {
+      height: 60px; }
+      .app-table table tbody tr.row-hover:hover {
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.02); }
+      .app-table table tbody tr td {
+        font-size: 13px;
+        vertical-align: middle;
+        border-color: rgba(0, 0, 0, 0.03);
+        border-left: none !important; }
+        .app-table table tbody tr td.is-icon {
+          text-align: center; }
+          .app-table table tbody tr td.is-icon:hover {
+            background: #1A77E8;
+            color: white;
+            cursor: pointer; }
+            .app-table table tbody tr td.is-icon:hover i {
+              color: white; }
+        .app-table table tbody tr td.no-click {
+          cursor: not-allowed;
+          pointer-events: none; }
+        .app-table table tbody tr td:last-child {
+          border-right: none; }
+      .app-table table tbody tr i.svg {
+        color: #1A77E8;
+        font-size: 17px;
+        line-height: 17px;
+        margin-top: 5px;
+        -webkit-transition: 200ms all;
+        -moz-transition: 200ms all;
+        -o-transition: 200ms all;
+        transition: 200ms all; }
+
+.table-foot {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px; }
+  .table-foot [class*="col-"] {
+    border: none !important;
+    padding: 0; }

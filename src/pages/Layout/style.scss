@@ -1,0 +1,38 @@
+@import "../../_styles/mixin";
+
+.page-home {
+    position: relative;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+
+
+    .home-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background: #DFE5EB;
+        border-top: 1px solid rgba(0, 0, 0, .06);
+
+        .container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            [class*="col-"] {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+            }
+        }
+
+    }
+
+}

@@ -1,0 +1,83 @@
+import * as React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import {
+    Home,
+    Login,
+    Layout,
+    Container
+} from "./pages/index";
+import {Notfound, Auth, Loading} from "./components/index";
+import './_styles/main.css';
+
+const DashboardLayout = ({children} : any) => {
+    return <Layout children={children}/>
+}
+
+const DashboardRoute = ({component: Component, ...rest}: any) => {
+    return (
+        <Route {...rest} render={matchProps => (
+            <DashboardLayout>
+                <Auth>
+                    <Component {...matchProps} />
+                </Auth>
+            </DashboardLayout>
+        )} />
+    )
+};
+
+
+interface Props {
+
+}
+
+interface State {
+    initialized: boolean
+}
+
+export default class App extends React.Component<Props,State> {
+    public state: State;
+
+    constructor(props: Props, context: any) {
+        super(props, context);
+
+        this.state = {
+            initialized: false,
+        };
+    }
+
+    async init(): Promise<void> {
+        let {initialized} = this.state;
+        if (initialized) {
+            return;
+        }
+
+        this.setState({
+            initialized: true,
+        });
+    }
+
+    componentDidMount(): void {
+        this.init();
+    }
+
+    render(): JSX.Element {
+
+        if (this.state === null || !this.state.initialized) {
+            return (
+                <Loading/>
+            );
+        }
+
+        return (
+            <Router>
+                <Switch>
+                    <DashboardRoute exact path="/" component={Home} />
+                    <DashboardRoute path="/home" component={Home} />
+                    <DashboardRoute path='/municipality-management-system' component={Container} />
+                    <Route exact path='/login' component={Login} />
+                    <Route component={Notfound} />
+                </Switch>
+            </Router>
+        );
+    }
+}

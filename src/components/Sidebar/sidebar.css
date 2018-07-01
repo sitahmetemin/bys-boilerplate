@@ -1,0 +1,161 @@
+/*Border radius ends here*/
+.app-sidebar-back {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);
+  animation-duration: 200ms; }
+
+.app-sidebar {
+  background: #323643;
+  height: 100%;
+  position: fixed;
+  width: 50px;
+  z-index: 11;
+  animation-duration: 300ms; }
+  .app-sidebar .close-button {
+    position: absolute;
+    left: 288px;
+    width: 25px;
+    height: 25px;
+    background: #1A77E8;
+    color: white;
+    z-index: 11;
+    bottom: 100px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; }
+    .app-sidebar .close-button svg {
+      color: white;
+      font-size: 15px;
+      margin-left: -3px; }
+  .app-sidebar .left {
+    width: 50px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0; }
+    .app-sidebar .left ul li {
+      /*&:nth-child(1) {
+          border-bottom: 1px solid rgba(0,0,0,.04);
+
+          svg {
+            &[data-prefix="fal"] {
+              display: block;
+            }
+            &[data-prefix="fas"] {
+              display: block;
+            }
+          }
+        }*/ }
+      .app-sidebar .left ul li a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        cursor: pointer;
+        position: relative;
+        -webkit-transition: 300ms all;
+        -moz-transition: 300ms all;
+        -o-transition: 300ms all;
+        transition: 300ms all; }
+        .app-sidebar .left ul li a > span.count {
+          -webkit-border-radius: 3px;
+          -moz-border-radius: 3px;
+          border-radius: 3px;
+          -webkit-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+          -moz-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+          box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+          background: #F71C6C;
+          color: white;
+          font-size: 8px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 0 4px;
+          height: 16px; }
+        .app-sidebar .left ul li a svg, .app-sidebar .left ul li a i {
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 18px; }
+          .app-sidebar .left ul li a svg[data-prefix="fal"], .app-sidebar .left ul li a i[data-prefix="fal"] {
+            display: none; }
+          .app-sidebar .left ul li a svg[data-prefix="fas"], .app-sidebar .left ul li a i[data-prefix="fas"] {
+            display: block; }
+        .app-sidebar .left ul li a:hover, .app-sidebar .left ul li a:active, .app-sidebar .left ul li a:focus {
+          background: rgba(255, 255, 255, 0.2);
+          text-decoration: none; }
+          .app-sidebar .left ul li a:hover svg[data-prefix="fal"], .app-sidebar .left ul li a:active svg[data-prefix="fal"], .app-sidebar .left ul li a:focus svg[data-prefix="fal"] {
+            display: block; }
+          .app-sidebar .left ul li a:hover svg[data-prefix="fas"], .app-sidebar .left ul li a:active svg[data-prefix="fas"], .app-sidebar .left ul li a:focus svg[data-prefix="fas"] {
+            display: none; }
+        .app-sidebar .left ul li a.active {
+          background: #DFE5EB; }
+  .app-sidebar .right {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    left: 50px;
+    border-right: 1px solid rgba(0, 0, 0, 0.09);
+    background: white;
+    top: 0;
+    padding: 15px 0 15px 15px; }
+    .app-sidebar .right .sidebar-menu {
+      height: 100%; }
+      .app-sidebar .right .sidebar-menu .tree-menu-area {
+        height: 100%; }
+        .app-sidebar .right .sidebar-menu .tree-menu-area .scrollbar {
+          width: 2px !important;
+          margin-left: 7px !important;
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px; }
+
+.digi-sidebar-icon {
+  position: fixed;
+  left: 3px;
+  top: 55px;
+  height: calc(100% - 58px);
+  width: 50px;
+  z-index: 4;
+  animation-duration: 400ms;
+  background: #1A77E8;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px; }
+  .digi-sidebar-icon ul li a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    cursor: pointer;
+    position: relative; }
+    .digi-sidebar-icon ul li a span.count {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+      -moz-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+      box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+      background: #F71C6C;
+      color: white;
+      font-size: 8px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 2px 4px; }
+    .digi-sidebar-icon ul li a i {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 20px; }
+    .digi-sidebar-icon ul li a:hover, .digi-sidebar-icon ul li a.active, .digi-sidebar-icon ul li a:active, .digi-sidebar-icon ul li a:focus {
+      background: rgba(255, 255, 255, 0.2);
+      text-decoration: none; }
+      .digi-sidebar-icon ul li a:hover i, .digi-sidebar-icon ul li a.active i, .digi-sidebar-icon ul li a:active i, .digi-sidebar-icon ul li a:focus i {
+        color: white; }
+  .digi-sidebar-icon ul li:nth-child(1) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }

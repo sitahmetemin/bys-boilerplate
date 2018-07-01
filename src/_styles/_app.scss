@@ -1,0 +1,483 @@
+@import "mixin";
+
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #434d51;
+    overflow-x: hidden;
+    //background: lighten($bg-color, 5%);
+    background: $bg-color;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none !important;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.bg-white {
+    background: white;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.padding-v {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.button-container {
+    background: #fbfbfb;
+    padding: 10px 0;
+}
+
+.app, .app-container {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    .app-footer {
+        & + main {
+            height: calc(100% - 40px);
+
+            .municipality-management-system {
+                .sidebar-menu {
+                    height: calc(100% - 40px);
+                }
+            }
+        }
+    }
+
+    .app-page-sidebar-container {
+        & + main {
+            width: calc(100% - 50px);
+        }
+    }
+
+    main {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        top: 0;
+        left: 50px;
+        @include transition(500ms all);
+
+        .scroll-page-container {
+            height: 100%;
+            .scrollbar {
+                width: 2px !important;
+                margin-left: 7px !important;
+                @include border-radius(4px);
+            }
+        }
+
+    }
+
+}
+
+.page-title {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0,0,0,.03);
+    background: white;
+
+    .app-title {
+        width: 100%;
+        padding: 0 15px;
+        font-size: 25px;
+        line-height: 25px;
+        font-weight: 300;
+        color: #2C2F38;
+        position: relative;
+
+        &:after {
+            position: absolute;
+            content: '';
+            height: 1px;
+            width: 60px;
+            background: #000;
+            left: 15px;
+            bottom: 0;
+        }
+    }
+
+    .app-helper-title {
+        width: 100%;
+        padding: 0px 15px;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 400;
+        color: $blue;
+        position: relative;
+        margin-top: -20px;
+    }
+}
+
+.app-nav {
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to top, #f5f6f7, #fff);
+    border-bottom: 1px solid rgba(0,0,0,.09);
+    position: sticky;
+    top: 0;
+    margin: 0;
+
+    ul {
+        display: flex;
+        height: 100%;
+
+        li {
+            //flex: 1 0 auto;
+            width: auto;
+            height: 100%;
+            text-align: left;
+            border-right: 1px solid rgba(0,0,0,.05);
+            text-transform: uppercase;
+            position: relative;
+            cursor: pointer;
+            font-size: 10px;
+            line-height: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2px 15px 0 15px;
+            @include transition(300ms all);
+            color: rgba(0,0,0,.6);
+            font-weight: 700;
+            text-shadow: 0px 0px 0px ;
+            letter-spacing: .5px;
+
+            &.no-link {
+                cursor: default;
+                font-size: 15px;
+                font-weight: 300;
+                text-transform: none;
+                background: white;
+
+                 &:hover {
+                     background: inherit;
+                 }
+            }
+
+            &:first-child {
+                svg {
+                    font-size: 20px;
+                    margin-right: 0;
+                    margin-top: -1px;
+                }
+            }
+
+            svg {
+                font-size: 12px;
+                margin-right: 15px;
+                margin-top: -1px;
+            }
+
+            &:hover {
+                background: #f5f6f7;
+
+                .close {
+                    opacity: 1;
+                }
+            }
+
+        }
+    }
+
+}
+
+table.table-custom {
+    margin: 0;
+
+    &.table-bordered {
+        border: none;
+    }
+
+
+
+    thead {
+        tr {
+            th {
+                height: 50px;
+                border: 2px solid #FFF;
+                font-size: 12px;
+                text-transform: capitalize;
+                background: #28c8ce;
+                color: black;
+
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            //background: white;
+            height: 50px;
+            &:nth-child(even) {
+                background: #dddddd
+            }
+
+            &:nth-child(odd) {
+                background: #ededed
+            }
+
+
+            td {
+                font-size: 13px;
+                vertical-align: middle;
+                border: 2px solid white;
+            }
+
+        }
+    }
+}
+
+.scrollarea-content {
+    min-height: 100%;
+}
+
+//Tooltip
+.tooltip {
+    position: absolute;
+    z-index: 1070;
+    display: block;
+    font-family: inherit;
+    letter-spacing: .5px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    line-break: auto;
+}
+
+.tooltip-inner {
+    max-width: 200px;
+    padding: 8px;
+    color: #fff;
+    text-align: center;
+    background-color: #000;
+    border-radius: 4px;
+}
+
+
+// Dropdown
+.dropdown-menu {
+    margin: 1px 0 0;
+    padding: 0;
+    font-size: 12px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid $blue;
+    @include border-radius(2px);
+    //@_bootstrap box-shadow(0px 0px 4px rgba(0, 0, 0, 0.05));
+
+    &.small {
+        position: relative;
+    }
+
+    &.dropdown-menu-right {
+        right: 0;
+        left: auto;
+    }
+
+    &:after {
+        content: '';
+        border-bottom: 5px solid $blue;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        position: absolute;
+        font-size: 9px;
+        color: $blue;
+        top: -6px;
+        right: 8px;
+        @include border-radius(4px !important);
+    }
+
+    &.dropdown-select {
+        &:after {
+            content: '';
+            border:none
+        }
+    }
+
+    li {
+
+        &.only-li {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 0 15px 0 40px;
+            cursor: pointer;
+
+            &.no-icon {
+                padding: 0 15px;
+            }
+
+            i, svg {
+                font-size: 13px;
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+            }
+        }
+
+        &:hover {
+            background: #F5F5F5;
+        }
+
+        a {
+
+            height: 40px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 0 15px 0 40px;
+            cursor: pointer;
+
+
+            i, svg {
+                font-size: 13px;
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+            }
+        }
+
+        &:first-child {
+            @include border-radius-top(4px);
+            a {
+                @include border-radius-top(4px)
+            }
+        }
+
+        &:last-child {
+            @include border-radius-bottom(4px);
+            a {
+                @include border-radius-bottom(4px)
+            }
+        }
+
+
+    }
+}
+
+.iziToast {
+    width: 500px;
+    @include border-radius(0);
+    margin: 0 0 1px 0;
+
+    .iziToast-close {
+        background-size: 15px;
+    }
+
+    .iziToast-body {
+        .iziToast-message {
+            font-family: inherit;
+            font-weight: 300;
+            color: black;
+        }
+
+        .iziToast-buttons {
+            float: right;
+        }
+    }
+
+}
+
+
+.react-datepicker-popper {
+
+    .react-datepicker__current-month {
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .react-datepicker__navigation.react-datepicker__navigation--next.react-datepicker__navigation--next--with-today-button {
+        &:hover {
+            border-left-color: #28c8ce
+        }
+    }
+
+    .react-datepicker__navigation.react-datepicker__navigation--previous {
+        &:hover {
+            border-right-color: #28c8ce
+        }
+    }
+
+    .react-datepicker {
+        font-family: 'Quicksand', sans-serif;
+        border: 1px solid #28c8ce;
+        @include box-shadow(0 6px 12px rgba(0,0,0,.175));
+
+        .react-datepicker__triangle {
+            &::before {
+                border-bottom-color: #28c8ce !important;
+            }
+        }
+    }
+
+    .react-datepicker__day--highlighted {
+        background: $red;
+    }
+
+    .react-datepicker__header {
+        //background: $blue;
+    }
+
+    .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+        width: 20px;
+        font-size: 11px;
+        line-height: 20px;
+    }
+
+    .react-datepicker__day.react-datepicker__day--sat.react-datepicker__day--selected.react-datepicker__day--today.react-datepicker__day--weekend {
+        background: #28c8ce;
+        color: white;
+    }
+
+    .react-datepicker__day--outside-month {
+        color: #ccc
+    }
+
+    .react-datepicker__day--keyboard-selected {
+        @include border-radius(4px);
+        background: #28c8ce;
+    }
+
+
+}
+
+

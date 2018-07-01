@@ -1,0 +1,130 @@
+/*Border radius ends here*/
+.page-home {
+  position: relative;
+  padding: 0;
+  height: 100%;
+  width: 100%; }
+  .page-home .container.home > .row {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: justify; }
+    .page-home .container.home > .row [class*="col-"] {
+      margin-bottom: 30px;
+      flex-direction: column;
+      -ms-flex-direction: column; }
+      .page-home .container.home > .row [class*="col-"].col-sm-2 {
+        width: 140px;
+        height: 110px; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(1) {
+        animation-duration: 400ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(2) {
+        animation-duration: 800ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(3) {
+        animation-duration: 1200ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(4) {
+        animation-duration: 1600ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(5) {
+        animation-duration: 2000ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(6) {
+        animation-duration: 2400ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(7) {
+        animation-duration: 2800ms; }
+      .page-home .container.home > .row [class*="col-"]:nth-child(8) {
+        animation-duration: 3200ms; }
+      .page-home .container.home > .row [class*="col-"] .box {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: white;
+        -webkit-box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.09);
+        -moz-box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.09);
+        box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.09);
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        -webkit-transition: 300ms all;
+        -moz-transition: 300ms all;
+        -o-transition: 300ms all;
+        transition: 300ms all;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer; }
+        .page-home .container.home > .row [class*="col-"] .box:hover {
+          background: #1A77E8;
+          width: 120%;
+          height: 120%;
+          margin-left: -10%;
+          margin-top: -10%;
+          color: white; }
+          .page-home .container.home > .row [class*="col-"] .box:hover svg {
+            color: white;
+            font-size: 60px; }
+        .page-home .container.home > .row [class*="col-"] .box svg {
+          font-size: 40px;
+          color: #9EAEB9;
+          -webkit-transition: 300ms all;
+          -moz-transition: 300ms all;
+          -o-transition: 300ms all;
+          transition: 300ms all; }
+      .page-home .container.home > .row [class*="col-"] a {
+        z-index: 1;
+        width: 100%;
+        left: 0;
+        top: 0;
+        color: #000;
+        display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 11px;
+        line-height: 12px;
+        font-weight: 500;
+        text-transform: capitalize; }
+        @media only screen and (max-width: 768px) {
+          .page-home .container.home > .row [class*="col-"] a {
+            padding-bottom: 0;
+            font-size: 13px; } }
+        .page-home .container.home > .row [class*="col-"] a:hover {
+          text-decoration: none;
+          font-weight: bold; }
+  .page-home .container.home-news {
+    padding: 40px; }
+    .page-home .container.home-news .blue-container [class*="col-"] {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column; }
+      .page-home .container.home-news .blue-container [class*="col-"] .number {
+        color: #1A77E8;
+        font-size: 110px;
+        line-height: 100px;
+        font-weight: 400; }
+      .page-home .container.home-news .blue-container [class*="col-"] .text {
+        color: black;
+        font-weight: 400;
+        font-size: 13px;
+        margin-top: 20px; }
+  .page-home .home-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: #DFE5EB;
+    border-top: 1px solid rgba(0, 0, 0, 0.06); }
+    .page-home .home-footer .container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .page-home .home-footer .container [class*="col-"] {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; }
