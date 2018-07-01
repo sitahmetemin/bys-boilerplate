@@ -1,0 +1,59 @@
+/*Border radius ends here*/
+.digi-message-box {
+  position: fixed;
+  top: 10px;
+  width: 70%;
+  height: 100px;
+  left: 15%;
+  z-index: 20;
+  margin: 0;
+  padding: 0; }
+  .digi-message-box .message-box {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    margin-top: 10px; }
+    .digi-message-box .message-box .text {
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+      color: white;
+      height: 100%;
+      padding: 0 20px; }
+      .digi-message-box .message-box .text .icon {
+        height: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: -10px;
+        top: 0;
+        width: 60px; }
+        .digi-message-box .message-box .text .icon i {
+          font-size: 60px;
+          font-weight: bold;
+          color: rgba(255, 255, 255, 0.2); }
+      .digi-message-box .message-box .text .message {
+        height: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        left: 60px;
+        top: 0;
+        width: calc(100% - 120px); }
+      .digi-message-box .message-box .text .close {
+        height: 100%;
+        position: absolute;
+        right: 0;
+        border-left: 1px solid white;
+        top: 0;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .digi-message-box .message-box .text .close i {
+          font-size: 40px;
+          font-weight: bold;
+          color: white; }
+    .digi-message-box .message-box.success {
+      background: #43C564; }

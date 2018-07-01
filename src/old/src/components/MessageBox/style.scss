@@ -1,0 +1,80 @@
+@import "../../_shared/styles/mixin";
+$headerHeight: 60px;
+
+.digi-message-box {
+  position: fixed;
+  top:10px;
+  width: 70%;
+  height: 100px;
+  left: 15%;
+  z-index: 20;
+  margin: 0;
+  padding: 0;
+
+  .message-box {
+    width: 100%;
+    height: $headerHeight;
+    position: relative;
+    margin-top: 10px;
+
+    .text {
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+      color: white;
+      height: 100%;
+      padding: 0 20px;
+
+      .icon {
+        height: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: -10px;
+        top: 0;
+        width: $headerHeight;
+
+        i {
+          font-size: 60px;
+          font-weight: bold;
+          color: rgba(255,255,255,.2);
+        }
+      }
+
+      .message {
+        height: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        left: $headerHeight;
+        top: 0;
+        width: calc(100% - 120px);
+      }
+
+      .close {
+        height: 100%;
+        position: absolute;
+        right: 0;
+        border-left: 1px solid white;
+        top: 0;
+        width: $headerHeight;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          font-size: 40px;
+          font-weight: bold;
+          color: white;
+        }
+      }
+    }
+
+    &.success {
+      background: #43C564;
+
+    }
+  }
+
+}

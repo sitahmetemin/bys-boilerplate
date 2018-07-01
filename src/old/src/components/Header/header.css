@@ -1,0 +1,130 @@
+/*Border radius ends here*/
+.digi-header {
+  height: 50px;
+  background: #FFF;
+  width: calc(100% - 6px);
+  left: 3px;
+  position: fixed;
+  top: 2px;
+  z-index: 4;
+  margin: 0;
+  padding: 0;
+  animation-duration: 500ms;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px; }
+  .digi-header .logo {
+    position: absolute;
+    left: 0;
+    width: 51px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .digi-header .logo img {
+      height: 40px; }
+  .digi-header .logo-title {
+    position: absolute;
+    left: 57px;
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: 'Montserrat', sans-serif;
+    flex-direction: column;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 600; }
+    .digi-header .logo-title span {
+      font-weight: 300;
+      font-size: 10px; }
+  .digi-header .nav-menu {
+    position: static;
+    display: inline-block;
+    padding-right: 5px; }
+    .digi-header .nav-menu.navbar-right {
+      margin: 0; }
+    .digi-header .nav-menu > li {
+      float: left; }
+      .digi-header .nav-menu > li:first-child {
+        border-left: none; }
+      .digi-header .nav-menu > li.open > a {
+        background: transparent;
+        color: #000000;
+        border-bottom: none;
+        margin: 0;
+        position: relative; }
+      .digi-header .nav-menu > li > a {
+        position: relative;
+        height: 48px;
+        font-size: 12px;
+        letter-spacing: .02em;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        color: #000000;
+        padding: 10px 10px; }
+        @media only screen and (max-width: 768px) {
+          .digi-header .nav-menu > li > a {
+            padding: 10px 5px; } }
+        .digi-header .nav-menu > li > a span.count {
+          -webkit-border-radius: 3px;
+          -moz-border-radius: 3px;
+          border-radius: 3px;
+          -webkit-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+          -moz-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+          box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+          background: #F71C6C;
+          color: white;
+          font-size: 8px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          text-align: center;
+          padding: 0 4px; }
+        .digi-header .nav-menu > li > a i {
+          margin-right: 10px; }
+        .digi-header .nav-menu > li > a.md {
+          width: 159px; }
+          .digi-header .nav-menu > li > a.md ~ ul {
+            width: 150px; }
+        .digi-header .nav-menu > li > a .caret {
+          margin-left: 10px; }
+        .digi-header .nav-menu > li > a img {
+          height: 25px;
+          width: 25px;
+          overflow: hidden;
+          -webkit-box-shadow: 0px 3px 15px -3px rgba(230, 230, 230, 0.67);
+          -moz-box-shadow: 0px 3px 15px -3px rgba(230, 230, 230, 0.67);
+          box-shadow: 0px 3px 15px -3px rgba(230, 230, 230, 0.67);
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+          padding: 1px; }
+          .digi-header .nav-menu > li > a img ~ span {
+            margin: 0 0 0 10px; }
+          .digi-header .nav-menu > li > a img.no-border {
+            border: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none; }
+        .digi-header .nav-menu > li > a span {
+          display: inline-block;
+          text-transform: uppercase;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100px; }
+          .digi-header .nav-menu > li > a span span {
+            display: inherit;
+            text-transform: none;
+            font-size: 8px;
+            line-height: 10px;
+            color: #a1a1a1; }
+        .digi-header .nav-menu > li > a:hover {
+          border-bottom: none; }
+  .digi-header .collapse, .digi-header .dropup, .digi-header .dropdown {
+    position: static; }
+  .digi-header .dropdown-menu {
+    left: auto; }

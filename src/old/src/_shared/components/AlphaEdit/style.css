@@ -1,0 +1,197 @@
+/*Border radius ends here*/
+.alpha-edit .alpha-title {
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 700;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  color: #1D2229; }
+
+.alpha-edit fieldset {
+  position: relative; }
+
+.alpha-edit .alpha-container {
+  position: relative; }
+  .alpha-edit .alpha-container .input-group {
+    width: 100%; }
+    .alpha-edit .alpha-container .input-group .input-group-addon {
+      background: rgba(180, 187, 208, 0.2);
+      font-weight: 600;
+      border: 1px solid #B4BBD0; }
+      .alpha-edit .alpha-container .input-group .input-group-addon.left {
+        -webkit-border-top-right-radius: 0;
+        -webkit-border-bottom-right-radius: 0;
+        -moz-border-radius-topright: 0;
+        -moz-border-radius-bottomright: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: 0; }
+      .alpha-edit .alpha-container .input-group .input-group-addon.right {
+        -webkit-border-top-left-radius: 0;
+        -webkit-border-bottom-left-radius: 0;
+        -moz-border-radius-topleft: 0;
+        -moz-border-radius-bottomleft: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0; }
+    .alpha-edit .alpha-container .input-group.data-active label.placeholder-label {
+      font-size: 10px;
+      letter-spacing: 0px;
+      top: 5px; }
+    .alpha-edit .alpha-container .input-group.addon-left fieldset input {
+      -webkit-border-top-left-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius-topleft: 0;
+      -moz-border-radius-bottomleft: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
+    .alpha-edit .alpha-container .input-group.addon-right fieldset input {
+      -webkit-border-top-right-radius: 0;
+      -webkit-border-bottom-right-radius: 0;
+      -moz-border-radius-topright: 0;
+      -moz-border-radius-bottomright: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0; }
+    .alpha-edit .alpha-container .input-group .input-group-btn button {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      background-color: rgba(180, 187, 208, 0.2);
+      border: 1px solid #B4BBD0;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      -webkit-border-top-left-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius-topleft: 0;
+      -moz-border-radius-bottomleft: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: 0;
+      height: 50px; }
+      .alpha-edit .alpha-container .input-group .input-group-btn button:hover, .alpha-edit .alpha-container .input-group .input-group-btn button:focus {
+        background-color: rgba(180, 187, 208, 0.3) !important;
+        border-color: #0091D4; }
+    .alpha-edit .alpha-container .input-group .input-group-btn.open button {
+      background-color: rgba(180, 187, 208, 0.3) !important;
+      border-color: #0091D4 !important;
+      border-left: solid 1px; }
+    .alpha-edit .alpha-container .input-group.error input {
+      border-color: #F2405D; }
+      .alpha-edit .alpha-container .input-group.error input:focus {
+        border-color: #F2405D; }
+  .alpha-edit .alpha-container label.placeholder-label {
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 400;
+    position: absolute;
+    top: 19px;
+    pointer-events: none;
+    left: 11px;
+    color: #93a4aa;
+    height: auto;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    z-index: 1;
+    cursor: text; }
+  .alpha-edit .alpha-container .helper-icon-alphaedit {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 400;
+    position: absolute;
+    top: 15px;
+    right: 11px;
+    color: #93a4aa;
+    height: auto;
+    z-index: 1;
+    cursor: pointer; }
+    .alpha-edit .alpha-container .helper-icon-alphaedit:hover {
+      font-size: 25px;
+      right: 9px;
+      top: 16px; }
+  .alpha-edit .alpha-container input {
+    width: 100%;
+    background: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: text;
+    letter-spacing: normal;
+    text-align: start;
+    text-indent: 0;
+    text-rendering: optimizelegibility;
+    text-shadow: none;
+    text-transform: none;
+    word-spacing: normal;
+    box-sizing: border-box;
+    border: 1px solid #B4BBD0;
+    transition: border 0.25s linear 0s, color 0.25s linear 0s, background-color 0.25s linear 0s;
+    font-size: 15px;
+    line-height: 13px;
+    color: #39495B;
+    position: relative;
+    height: 50px;
+    padding: 0 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    z-index: 0; }
+    .alpha-edit .alpha-container input:hover {
+      outline: 0 none;
+      border-color: #9399AC;
+      box-shadow: 0 5px 6px -5px rgba(0, 0, 0, 0.2), 0 7px 5px -7px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2); }
+    .alpha-edit .alpha-container input:focus {
+      outline: 0 none;
+      border-color: #0091D4;
+      box-shadow: 0 5px 6px -5px rgba(0, 0, 0, 0.2), 0 7px 5px -7px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2);
+      z-index: 0; }
+      .alpha-edit .alpha-container input:focus ~ label.placeholder-label {
+        font-size: 10px;
+        letter-spacing: 0px;
+        top: 5px; }
+    .alpha-edit .alpha-container input:disabled {
+      background: #E9EDF1;
+      box-shadow: none;
+      cursor: not-allowed;
+      pointer-events: none;
+      color: #B4BBD0; }
+      .alpha-edit .alpha-container input:disabled:focus {
+        border-color: #E9EDF1;
+        box-shadow: none; }
+    .alpha-edit .alpha-container input:read-only {
+      box-shadow: none;
+      cursor: not-allowed;
+      pointer-events: none; }
+      .alpha-edit .alpha-container input:read-only:focus {
+        border-color: #E9EDF1;
+        box-shadow: none; }
+  .alpha-edit .alpha-container .alpha-error-container {
+    font-size: 10px;
+    position: absolute;
+    background: #F2405D;
+    color: #fff;
+    transition: 0.3s ease all;
+    height: auto;
+    padding: 2px 5px;
+    z-index: 1;
+    width: 100%;
+    text-align: left;
+    top: 55px;
+    left: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px; }
+    .alpha-edit .alpha-container .alpha-error-container:after {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: -3px;
+      width: 0;
+      height: 0;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid #F2405D; }

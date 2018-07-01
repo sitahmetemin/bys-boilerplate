@@ -1,0 +1,75 @@
+@import "../../../_shared/styles/mixin";
+
+.mms-dashboard {
+
+  padding: 30px;
+
+  .row.mms {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+
+    [class*="col-"] {
+      background: white;
+      @include border-radius(2px);
+      height: 150px;
+      margin: 15px;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        @include box-shadow(0px 0px 5px rgba(0,0,0,.07))
+      }
+
+      > .title {
+        font-size: 22px;
+        font-weight: 100;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+      }
+
+      > i {
+        font-size: 40px;
+        font-weight: 100;
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        color: $red
+      }
+
+      > .count {
+        font-size: 60px;
+        font-weight: 100;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+
+        span {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+  .mms-title {
+    width: 100%;
+    padding: 5px 0;
+    font-weight: 300;
+    color: black;
+    position: relative;
+    height: 50px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    line-height: 30px;
+
+    &:after {
+      position: absolute;
+      content: '';
+      height: 1px;
+      width: 60px;
+      background: black;
+      left: 0;
+      bottom: 0;
+    }
+  }
+}
