@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux';
 import {dataAction, store} from "../../_redux";
 import {isMenu, getMenu} from '../../_functions'
+
 import './style.css'
 
 interface Props {
@@ -22,14 +23,18 @@ interface State {
     selectedMenu: string
 }
 
-
-
 class Footer extends React.Component<Props, State> {
     public state: State;
 
     constructor(props: Props, state: State) {
         super(props, state);
+        this.state= {
+            ...state
+        }
 
+    }
+
+    componentDidMount() {
         let a = this.menuControl(this.props);
         let x:any = [];
 
@@ -42,12 +47,11 @@ class Footer extends React.Component<Props, State> {
         let tabMenu:any = getMenu(x);
 
         this.state = {
-            ...state,
+            ...this.state,
             tabMenu: tabMenu
         };
 
         this.tabMenuUpdate(tabMenu)
-
     }
 
     componentWillReceiveProps(nextProps: any) {
@@ -175,6 +179,7 @@ class Footer extends React.Component<Props, State> {
     }
 
     public render() {
+        // console.log('---', this.state)
         return this.renderTabMenu()
     }
 }

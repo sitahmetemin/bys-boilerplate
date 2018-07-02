@@ -223,30 +223,6 @@
     "messages": [],
     "items": [
       {
-        "vsm1progsId": 144574,
-        "type": "-",
-        "link": "/legacy.html",
-        "name": "Iframe test",
-        "description": "-",
-        "parentId": -1,
-        "parameter": null,
-        "kayitDuzeyi": 1,
-        "id": 141152,
-        "componentLink": null
-      },
-      {
-        "vsm1progsId": 12345,
-        "type": "T",
-        "link": "dummy",
-        "name": "Component test",
-        "description": "-",
-        "parentId": -1,
-        "parameter": "Y",
-        "kayitDuzeyi": 1,
-        "id": 12345678,
-        "componentLink": "test-form-container-component"
-      },
-      {
         "vsm1progsId": 1,
         "type": "T",
         "link": "/KEYOP/faces/tkp/tkpOdemeEmriOlusturHizli.jsp",

@@ -1,6 +1,6 @@
 /*Border radius ends here*/
 .app-treeview-component {
-  width: auto;
+  width: 100%;
   display: inline-block;
   height: 100%; }
   .app-treeview-component li {
@@ -58,39 +58,53 @@
     .app-treeview-component li ul {
       margin-left: 20px;
       display: none; }
-      .app-treeview-component li ul li a {
-        text-decoration: none;
-        font-size: 12px;
-        line-height: 14px;
-        position: relative;
-        left: 15px;
-        color: #1A77E8;
-        -webkit-transition: 300ms all;
-        -moz-transition: 300ms all;
-        -o-transition: 300ms all;
-        transition: 300ms all; }
-        .app-treeview-component li ul li a:before {
-          display: block;
-          background: rgba(19, 41, 75, 0.5);
-          width: 0px;
-          top: 8px;
-          height: 1px;
-          left: 0px;
-          position: absolute;
-          content: '';
+      .app-treeview-component li ul li {
+        padding: 5px 0; }
+        .app-treeview-component li ul li a {
+          text-decoration: none;
+          font-size: 12px;
+          line-height: 14px;
+          position: relative;
+          left: 15px;
+          color: #1A77E8;
           -webkit-transition: 300ms all;
           -moz-transition: 300ms all;
           -o-transition: 300ms all;
           transition: 300ms all; }
-        .app-treeview-component li ul li a:hover {
-          padding-left: 20px; }
-          .app-treeview-component li ul li a:hover:before {
+          .app-treeview-component li ul li a + .add-menu {
+            display: none;
+            -webkit-transition: 300ms all;
+            -moz-transition: 300ms all;
+            -o-transition: 300ms all;
+            transition: 300ms all; }
+          .app-treeview-component li ul li a:before {
             display: block;
             background: rgba(19, 41, 75, 0.5);
-            width: 15px;
+            width: 0px;
+            top: 8px;
             height: 1px;
+            left: 0px;
             position: absolute;
-            content: ''; }
+            content: '';
+            -webkit-transition: 300ms all;
+            -moz-transition: 300ms all;
+            -o-transition: 300ms all;
+            transition: 300ms all; }
+          .app-treeview-component li ul li a:hover {
+            padding-left: 20px; }
+            .app-treeview-component li ul li a:hover:before {
+              display: block;
+              background: rgba(19, 41, 75, 0.5);
+              width: 15px;
+              height: 1px;
+              position: absolute;
+              content: ''; }
+        .app-treeview-component li ul li:hover a + .add-menu {
+          display: block;
+          position: absolute;
+          right: 15px;
+          top: 6px;
+          font-size: 18px; }
     .app-treeview-component li.open > .menu-title svg {
       -webkit-transform: rotate(90deg);
       -moz-transform: rotate(90deg);

@@ -1,19 +1,41 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom'
 import _ from 'lodash'
-class Auth extends React.Component {
 
-    componentDidMount() {
-        const isAuthorized = JSON.parse(localStorage.getItem('userInfo'));
-        if(_.isEmpty(isAuthorized) || !isAuthorized.token || _.isEmpty(isAuthorized.token)) {
-            this.props.history.push('/login');
+class Auth extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            login: false
         }
     }
 
+    async componentDidMount() {
+        const isAuthorized = await JSON.parse(localStorage.getItem('userInfo'));
+        if (!isAuthorized || _.isEmpty(isAuthorized)) {
+            window.location = '/login';
+
+            return false;
+        } else {
+            this.setState({
+                login:true
+            })
+        }
+    }
+
+    renderChild() {
+        if (this.state.login) {
+            return this.props.children
+        }
+        return null
+    }
+
+
     render() {
-        return this.props.children
+        return this.renderChild()
     }
 }
 
-
-export default withRouter(Auth)
+export default withRouter(Auth);

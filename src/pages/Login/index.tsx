@@ -20,7 +20,9 @@ class Login extends React.Component<Props, State> {
         super(props, state);
 
         this.state = {
-            ...state
+            ...state,
+            email: 'mail@mehmetokanozcan.com',
+            password: '123'
         }
     }
 
@@ -56,7 +58,7 @@ class Login extends React.Component<Props, State> {
                             <Input
                                 caption="E-Posta Adresi"
                                 type="text"
-                                value={''}
+                                value={this.state.email}
                                 onChange={(val: string)=> this.handleChange(val, 'email')}
                                 helperIcon={'at'}
                                 style={{marginBottom: 15}}
@@ -70,7 +72,7 @@ class Login extends React.Component<Props, State> {
                             <Input
                                 caption="Şifre"
                                 type="password"
-                                value={''}
+                                value={this.state.password}
                                 onChange={(val: string)=> this.handleChange(val, 'password')}
                                 helperIcon={'lock-alt'}
                                 style={{marginBottom: 15}}

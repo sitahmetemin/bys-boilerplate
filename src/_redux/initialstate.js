@@ -8,6 +8,7 @@ export const initialState = {
     // --------------------------------------------------------->
     treeMenu: {},
     tabMenu: {},
+    fastMenu: {},
     activeMenu: {}
 };
 

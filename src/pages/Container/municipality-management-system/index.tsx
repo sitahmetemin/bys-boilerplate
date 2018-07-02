@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import {withRouter} from 'react-router-dom'
-// import {TreeMenu} from '../../../components'
-import {Helmet} from "../../../_basecomponents"
+import {TreeMenu} from '../../../components'
+import {Helmet, Scroll} from "../../../_basecomponents"
 import './style.css'
 
 interface Props {
@@ -12,10 +12,9 @@ interface Props {
 
 interface State {
     errorMessage: string,
-    email: string,
-    password: string,
     datas: string,
-    title: string
+    title: string,
+    sidebar: boolean
 }
 
 class Municipality extends React.Component<Props, State> {
@@ -26,7 +25,8 @@ class Municipality extends React.Component<Props, State> {
 
         this.state = {
             ...state,
-            title: 'Test'
+            title: 'Test',
+            sidebar: false
         }
     }
 
@@ -41,7 +41,7 @@ class Municipality extends React.Component<Props, State> {
             <Helmet title={title} />
             <div className="app-nav">
                 <ul>
-                    <li onClick={() => this.redirect('/')}>
+                    <li onClick={() => this.setState({sidebar: !this.state.sidebar})}>
                         <i className="fal fa-bars"></i>
                     </li>
                     <li onClick={() => this.redirect('/')}>
@@ -64,20 +64,27 @@ class Municipality extends React.Component<Props, State> {
         </div>
     }
 
+    renderSideBar() {
+        const {sidebar} = this.state;
+
+        if (sidebar) {
+            return <div className="sidebar-menu">
+                <Scroll scrollclass="tree-menu-area">
+                    <TreeMenu onChange={()=> {}}/>
+                </Scroll>
+            </div>
+        }
+
+        return null
+    }
+
     render(): JSX.Element {
 
         return (
             <div className="municipality-management-system">
-
-                {/*<div className="sidebar-menu">
-                    <Scroll scrollclass="tree-menu-area">
-                        <TreeMenu onChange={()=> {}}/>
-                    </Scroll>
-                </div>*/}
+                {this.renderSideBar()}
                 <div className="content">
-
                     {this.renderCover()}
-
                     asd
                 </div>
             </div>

@@ -31,7 +31,6 @@ const tryRequire = (path:any) => {
     }
 };
 
-
 class Container extends React.Component<Props, State> {
     public state: State;
 
@@ -44,7 +43,6 @@ class Container extends React.Component<Props, State> {
             ...state,
             tabMenu: tabMenu
         }
-
     }
 
     componentWillReceiveProps(nextProps: any) {
@@ -60,11 +58,9 @@ class Container extends React.Component<Props, State> {
 
         if (tabMenu && tabMenu.length) {
             return tabMenu.map((item: any,i:number) => {
-
                 let path:any = `.${item.link}`;
-                if (path) {
+                if (path && tryRequire(path)) {
                     let LoadComponent = tryRequire(path).default;
-
                     return <div className="tab" style={{display: item.active ? 'block' : 'none'}} key={i}>
                         <LoadComponent
                             location={this.props}

@@ -1,123 +1,147 @@
 @import '../../_styles/mixin';
 
 .app-treeview-component {
-  width: auto;
-  display: inline-block;
-  height: 100%;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
 
-  li {
-    font-size: 12px;
-    padding: 2px 0;
-    position: relative;
-    display: block;
-    cursor: pointer;
-
-    > a {
-      text-decoration: none;
-      font-size: 13px;
-      line-height: 14px;
-      position: relative;
-      left: 15px;
-      color: $blue;
-      @include transition(300ms all);
-
-      &:before {
+    li {
+        font-size: 12px;
+        padding: 2px 0;
+        position: relative;
         display: block;
-        background: rgba(19, 41, 75, .5);
-        width: 0px;
-        top: 8px;
-        height: 1px;
-        left: 0px;
-        position: absolute;
-        content: '';
-        @include transition(300ms all);
-      }
+        cursor: pointer;
 
-      &:hover {
-        padding-left: 20px;
-        &:before {
-          display: block;
-          background: rgba(19, 41, 75, .5);
-          width: 15px;
-          height: 1px;
-          //left: 20px;
-          position: absolute;
-          content: '';
-        }
-      }
-    }
-
-    .app-treeview-menu-title {
-      font-weight: 500;
-      padding-left: 15px;
-
-      svg {
-        font-size: 10px;
-        margin-right: 3px;
-        @include transition(300ms all);
-        position: absolute;
-        left: 0;
-        top: 6px;
-      }
-    }
-
-    ul {
-      margin-left: 20px;
-      display: none;
-
-      li {
-        a {
-          text-decoration: none;
-          font-size: 12px;
-          line-height: 14px;
-          position: relative;
-          left: 15px;
-          color: $blue;
-          @include transition(300ms all);
-
-          &:before {
-            display: block;
-            background: rgba(19, 41, 75, .5);
-            width: 0px;
-            top: 8px;
-            height: 1px;
-            left: 0px;
-            position: absolute;
-            content: '';
+        > a {
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 14px;
+            position: relative;
+            left: 15px;
+            color: $blue;
             @include transition(300ms all);
-          }
 
-          &:hover {
-            padding-left: 20px;
             &:before {
-              display: block;
-              background: rgba(19, 41, 75, .5);
-              width: 15px;
-              height: 1px;
-              //left: 20px;
-              position: absolute;
-              content: '';
+                display: block;
+                background: rgba(19, 41, 75, .5);
+                width: 0px;
+                top: 8px;
+                height: 1px;
+                left: 0px;
+                position: absolute;
+                content: '';
+                @include transition(300ms all);
             }
-          }
+
+            &:hover {
+                padding-left: 20px;
+                &:before {
+                    display: block;
+                    background: rgba(19, 41, 75, .5);
+                    width: 15px;
+                    height: 1px;
+                    //left: 20px;
+                    position: absolute;
+                    content: '';
+                }
+            }
         }
-      }
-    }
 
-    &.open {
-      > .menu-title {
-        svg {
-          @include transform(rotate(90deg))
+        .app-treeview-menu-title {
+            font-weight: 500;
+            padding-left: 15px;
+
+            svg {
+                font-size: 10px;
+                margin-right: 3px;
+                @include transition(300ms all);
+                position: absolute;
+                left: 0;
+                top: 6px;
+            }
         }
-      }
-      > ul {
-        display: block;
-      }
-    }
 
-    &.none {
-      display: none;
-    }
+        ul {
+            margin-left: 20px;
+            display: none;
 
-  }
+            li {
+                padding: 5px 0;
+                //border-top: 1px solid #eee;
+                a {
+                    text-decoration: none;
+                    font-size: 12px;
+                    line-height: 14px;
+                    position: relative;
+                    left: 15px;
+                    color: $blue;
+                    @include transition(300ms all);
+
+                    & + .add-menu {
+                        display: none;
+                        @include transition(300ms all);
+
+                    }
+
+                    &:before {
+                        display: block;
+                        background: rgba(19, 41, 75, .5);
+                        width: 0px;
+                        top: 8px;
+                        height: 1px;
+                        left: 0px;
+                        position: absolute;
+                        content: '';
+                        @include transition(300ms all);
+                    }
+
+                    &:hover {
+                        padding-left: 20px;
+                        &:before {
+                            display: block;
+                            background: rgba(19, 41, 75, .5);
+                            width: 15px;
+                            height: 1px;
+                            //left: 20px;
+                            position: absolute;
+                            content: '';
+                        }
+
+
+                    }
+                }
+
+                &:hover {
+                    //border-bottom: 1px solid #eee;
+
+                    a {
+                        & + .add-menu {
+                            display: block;
+                            position: absolute;
+                            right: 15px;
+                            top: 6px;
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.open {
+            > .menu-title {
+                svg {
+                    @include transform(rotate(90deg))
+                }
+            }
+            > ul {
+                display: block;
+            }
+        }
+
+        &.none {
+            display: none;
+        }
+
+    }
 }
 
