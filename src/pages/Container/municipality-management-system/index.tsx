@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import {withRouter} from 'react-router-dom'
-import {TreeMenu} from '../../../components'
-import {Helmet, Scroll} from "../../../_basecomponents"
+// import {TreeMenu} from '../../../components'
+import {Helmet} from "../../../_basecomponents"
 import './style.css'
 
 interface Props {
@@ -26,7 +26,7 @@ class Municipality extends React.Component<Props, State> {
 
         this.state = {
             ...state,
-            title: 'Belediye Yönetim Sistemi'
+            title: 'Test'
         }
     }
 
@@ -69,11 +69,11 @@ class Municipality extends React.Component<Props, State> {
         return (
             <div className="municipality-management-system">
 
-                <div className="sidebar-menu">
+                {/*<div className="sidebar-menu">
                     <Scroll scrollclass="tree-menu-area">
                         <TreeMenu onChange={()=> {}}/>
                     </Scroll>
-                </div>
+                </div>*/}
                 <div className="content">
 
                     {this.renderCover()}

@@ -25,6 +25,7 @@
     "numeral": "^2.0.6",
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
+    "react-async-component": "^2.0.0",
     "react-bootstrap": "^0.32.1",
     "react-datepicker": "^1.2.2",
     "react-dom": "^16.4.1",

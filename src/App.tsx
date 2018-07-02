@@ -10,7 +10,11 @@ import {Notfound, Auth, Loading} from "./components/index";
 import './_styles/main.css';
 
 const DashboardLayout = ({children} : any) => {
-    return <Layout children={children}/>
+    return <Layout children={children} tab={true}/>
+}
+
+const NoTabLayout = ({children} : any) => {
+    return <Layout children={children} tab={false}/>
 }
 
 const DashboardRoute = ({component: Component, ...rest}: any) => {
@@ -21,6 +25,18 @@ const DashboardRoute = ({component: Component, ...rest}: any) => {
                     <Component {...matchProps} />
                 </Auth>
             </DashboardLayout>
+        )} />
+    )
+};
+
+const DashboardRouteNoTab = ({component: Component, ...rest}: any) => {
+    return (
+        <Route {...rest} render={matchProps => (
+            <NoTabLayout>
+                <Auth>
+                    <Component {...matchProps} />
+                </Auth>
+            </NoTabLayout>
         )} />
     )
 };
@@ -71,9 +87,10 @@ export default class App extends React.Component<Props,State> {
         return (
             <Router>
                 <Switch>
-                    <DashboardRoute exact path="/" component={Home} />
-                    <DashboardRoute path="/home" component={Home} />
+                    <DashboardRouteNoTab exact path="/" component={Home} />
+                    <DashboardRouteNoTab path="/home" component={Home} />
                     <DashboardRoute path='/municipality-management-system' component={Container} />
+                    <DashboardRoute path='/business-processes-management' component={Container} />
                     <Route exact path='/login' component={Login} />
                     <Route component={Notfound} />
                 </Switch>

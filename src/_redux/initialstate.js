@@ -6,7 +6,7 @@ export const initialState = {
     processBox: [],
     messageBox: [],
     // --------------------------------------------------------->
-
+    treeMenu: {},
     tabMenu: {},
     activeMenu: {}
 };

@@ -4,10 +4,7 @@ import i18n from '../_i18n/index';
 import numeral from 'numeral';
 import iziToast from 'izitoast/dist/js/iziToast'
 import 'izitoast/dist/css/iziToast.css'
-import {store} from '../_redux/index';
-// import {syncHistoryWithStore} from "react-router-redux";
-// import {browserHistory} from "react-router";
-// const history = syncHistoryWithStore(browserHistory, store);
+import _ from "lodash";
 // import tr from 'numeral/locales/tr';
 
 let locale = localStorage.getItem('language') || 'tr';
@@ -56,10 +53,73 @@ export function convertDateDotToMinus(val) {
     return year + '-' + month + '-' + day
 }
 
-/*
-export function redirect(val) {
-    history.push(`/${val}`)
-}*/
+export function getNestedChildren(arr, parent) {
+    let out = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].parentId !== arr[i].vsm1progsId) {
+            if (arr[i].parentId === parent) {
+                let x = getNestedChildren(arr, arr[i].vsm1progsId)
+                if (x.length) {
+                    arr[i].children = x
+                }
+                out.push(arr[i])
+            }
+        }
+    }
+    return out
+}
+
+export function getMenu(val) {
+
+    let menuItem = val;
+    let x = localStorage.getItem('tabMenu');
+    let tabMenu = JSON.parse(x);
+    let menu = tabMenu;
+
+    if (!isMenu(menuItem).length) {
+        if(menu) {
+            menu.forEach((item) => {
+                item.active = false;
+            });
+
+            menu.push({
+                link: menuItem.link,
+                name: menuItem.name,
+                active: true
+            })
+        } else {
+            menu = [
+                {
+                    link: menuItem.link,
+                    name: menuItem.name,
+                    active: true
+                }
+            ]
+        }
+
+    } else {
+        menu.length && menu.forEach((item) => {
+            item.active = false;
+            if (menuItem.link === item.link) {
+                item.active = true;
+            }
+        });
+    }
+
+    return menu ? menu : [];
+}
+
+export function isMenu(val) {
+    let x = localStorage.getItem('tabMenu');
+    let tabMenu = JSON.parse(x);
+    return _.filter(tabMenu, item => {
+        if (item.link === val.link) {
+            return true
+        } else {
+            return false
+        }
+    });
+}
 
 export function Messages(title, text, theme, show) {
     iziToast[theme]({

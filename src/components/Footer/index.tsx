@@ -3,11 +3,11 @@ import * as _ from 'lodash'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux';
 import {dataAction, store} from "../../_redux";
+import {isMenu, getMenu} from '../../_functions'
 import './style.css'
 
 interface Props {
-    routeInfo:any,
-    activeMenu: any,
+    routeInfo: any,
     history: any
 }
 
@@ -22,146 +22,72 @@ interface State {
     selectedMenu: string
 }
 
+
+
 class Footer extends React.Component<Props, State> {
     public state: State;
 
     constructor(props: Props, state: State) {
         super(props, state);
 
-        let x:any = localStorage.getItem('tabMenu');
-        let tabMenu = JSON.parse(x);
+        let a = this.menuControl(this.props);
+        let x:any = [];
 
-        if (tabMenu && tabMenu.length) {
-            /*console.log('----')
-
-            tabMenu.forEach((item: any, i: number) => {
-                item.active = i === 0 ? true : false;
-            });*/
+        if (isMenu(a)[0]) {
+            x = isMenu(a)[0]
         } else {
-
-
-            let a:any = localStorage.getItem('storeMenu');
-            let storeMenu = JSON.parse(a);
-
-            let temData:any = {
-                active: true,
-                link: this.props.routeInfo.location.pathname,
-                name: 'Default'
-            }
-
-             _.filter(storeMenu, (item:any) => {
-                if (item.link === this.props.routeInfo.location.pathname) {
-                    temData = {
-                        active: true,
-                        link: item.link,
-                        name: item.name
-                    }
-                    return item
-                }
-            });
-
-            tabMenu = [
-                {
-                    ...temData
-                }
-            ]
-
-            this.tabMenuUpdate(tabMenu)
-
+            x = a
         }
+
+        let tabMenu:any = getMenu(x);
+
         this.state = {
             ...state,
-            tabMenu: tabMenu ? tabMenu : [],
-        }
+            tabMenu: tabMenu
+        };
 
-        console.log('_---', this.state)
+        this.tabMenuUpdate(tabMenu)
 
-    }
-
-    componentDidMount() {
-
-        const {tabMenu} = this.state;
-        if (tabMenu && tabMenu.length) {
-            this.tabMenuUpdate(tabMenu)
-        }
-    }
-
-    isTabMenu(val:any) {
-
-        let x:any = localStorage.getItem('tabMenu');
-        let tabMenu = JSON.parse(x);
-        return _.filter(tabMenu, item => {
-            if(item.link === val.link) {
-                return true
-            } else {
-                return false
-            }
-        });
     }
 
     componentWillReceiveProps(nextProps: any) {
         if (nextProps.routeInfo.location.pathname !== this.props.routeInfo.location.pathname) {
 
-
-            let menuItem = nextProps.activeMenu;
-            let x:any = localStorage.getItem('tabMenu');
-            let tabMenu = JSON.parse(x);
-            let menu = [];
-
-            console.log('_---',_.split(nextProps.routeInfo.location.pathname,'/'), tabMenu)
-
-            if (_.split(nextProps.routeInfo.location.pathname,'/').length === 2) {
-                menuItem = {
-                    active: true,
-                    link: nextProps.routeInfo.location.pathname,
-                    name: 'Default'
-                }
+            let a = this.menuControl(nextProps);
+            let x:any = [];
+            if (isMenu(a)[0]) {
+                x = isMenu(a)[0]
+            } else {
+                x = a
             }
 
-            if (tabMenu && !_.isArray(tabMenu)) {
-                menu.push(tabMenu)
-            } else if (!tabMenu) {
-                menu = [{
-                    active: true,
-                    link: menuItem.link,
-                    name: menuItem.name
-                }];
-
-            } else if (tabMenu && _.isArray(tabMenu) && tabMenu.length) {
-                menu = tabMenu;
-
-                if (!this.isTabMenu(menuItem).length) {
-                    menu.forEach(item => {
-                        item.active = false;
-                    });
-
-                    menu.push({
-                        link: menuItem.link,
-                        name: menuItem.name,
-                        active: true
-                    })
-                } else {
-                    menu.forEach(item => {
-                        item.active = false;
-                        if(menuItem.link === item.link) {
-                            item.active = true;
-                        }
-                    });
-                }
-            }
+            let tabMenu:any = getMenu(x);
 
             this.setState({
-                tabMenu: menu
-            });
+                ...this.state,
+                tabMenu: tabMenu
+            }, ()=> {
+                this.tabMenuUpdate(tabMenu)
+            })
 
-            this.tabMenuUpdate(menu)
         }
     }
 
-    redirect(val: any, status: string) {
-        if (status === 'success') {
-            this.props.history.push(this.state.selectedMenu)
+    menuControl(props: any) {
+        let a: any = localStorage.getItem('storeMenu');
+        let storeMenu = JSON.parse(a);
+
+        let x: any = _.filter(storeMenu, (item: any) => {
+            if (item.link === _.trimEnd(props.routeInfo.location.pathname,'/')) {
+                return item
+            }
+        });
+
+        if (x.length) {
+            return x[0]
         }
+
+        return null
     }
 
     action(execSource: string, value: any): void {
@@ -172,52 +98,46 @@ class Footer extends React.Component<Props, State> {
             actions: {
                 tabUpdate: {
                     value: value,
-                    // func: (val: any, status: string) => this.redirect(val, status),
                     targetPath: 'tabMenu'
-                },
-                activeMenu: {
-                    value: value,
-                    targetPath: 'activeMenu'
                 }
             }
         };
         dispatch(dataAction(actionList));
     }
 
-    selectTab(val: string): void {
-        const {tabMenu} = this.state;
-
-        tabMenu.length && tabMenu.forEach(item => {
-            item.active = item.link === val ? true : false;
-        });
-
-        this.setState({
-            tabMenu: tabMenu,
-            selectedMenu: val
-        }, () => {
-            // TODO: tıklandığında URL değiştirmesi için gelitirme yapılacak
-            // this.action('activeMenu',val);
-            this.tabMenuUpdate(this.state.tabMenu)
-        })
+    selectTab(val: string) {
+        this.props.history.push(val)
     }
 
-    tabMenuUpdate(x: any) {
+    tabMenuUpdate = (x: any) => {
+
+        this.setState({
+            tabMenu: x
+        });
+
         this.action('tabUpdate', x);
         localStorage.setItem('tabMenu', JSON.stringify(x))
+
     }
 
     removeTabItem(val: any) {
         const {tabMenu} = this.state;
         let x = tabMenu;
 
-        _.remove(x, function(n) {
+        _.remove(x, function (n) {
             return n.link === val;
         });
 
-        if (x && x.length && val.active) {
+        if (x && x.length) {
             x.forEach((item, i) => {
-                item.active = i === 0 ? true : false;
+                if (i === 0) {
+                    this.props.history.push(item.link)
+                }
             });
+        }
+
+        if (!x.length) {
+            this.props.history.push('/')
         }
 
         this.tabMenuUpdate(x)
@@ -231,7 +151,7 @@ class Footer extends React.Component<Props, State> {
             return tabMenu.map((item, i) => {
                 return <li className={item.active ? 'active' : ''} key={i} onClick={() => this.selectTab(item.link)}>
                     {item.name}
-                    <div className="close" onClick={()=> this.removeTabItem(item.link)}>
+                    <div className="close" onClick={() => this.removeTabItem(item.link)}>
                         <i className="far fa-times"></i>
                     </div>
                 </li>
@@ -243,7 +163,6 @@ class Footer extends React.Component<Props, State> {
 
     renderTabMenu() {
         const {tabMenu} = this.state;
-
         if (tabMenu && tabMenu.length) {
             return <div className="app-footer animated fadeInUp">
                 <ul>
@@ -256,13 +175,12 @@ class Footer extends React.Component<Props, State> {
     }
 
     public render() {
-        return (this.renderTabMenu())
+        return this.renderTabMenu()
     }
 }
 
 const mapStateToProps = (state: any) => ({
-    tabMenu: state.store.tabMenu,
-    activeMenu: state.store.activeMenu,
+    tabMenu: state.store.tabMenu
 });
 
 export default withRouter(connect(mapStateToProps)(Footer) as any)

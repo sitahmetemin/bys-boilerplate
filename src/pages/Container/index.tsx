@@ -1,18 +1,8 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import {withRouter} from 'react-router-dom'
-// import {Button, Form, Input, Checkbox} from '../../_basecomponents'
 import {NotFound} from '../../components'
 import {connect} from "react-redux";
-// import './style.css'
-
-const tryRequire = (path:string) => {
-    try {
-        return require(`${path}`);
-    } catch (err) {
-        return null;
-    }
-};
 
 interface TabMenu {
     name: string,
@@ -27,20 +17,26 @@ interface Props {
 
 interface State {
     errorMessage: string,
-    email: string,
-    password: string,
     tabMenu: any,
     location: any,
     basePath: any,
     query: any
 }
 
+const tryRequire = (path:any) => {
+    try {
+        return require(`${path}`);
+    } catch (err) {
+        return null;
+    }
+};
+
+
 class Container extends React.Component<Props, State> {
     public state: State;
 
     constructor(props: Props, state: State) {
         super(props, state);
-
         let x:any = localStorage.getItem('tabMenu');
         let tabMenu = JSON.parse(x);
 
@@ -48,7 +44,9 @@ class Container extends React.Component<Props, State> {
             ...state,
             tabMenu: tabMenu
         }
+
     }
+
     componentWillReceiveProps(nextProps: any) {
         if (_.difference(nextProps.tabMenu, this.state.tabMenu)) {
             this.setState({
@@ -57,23 +55,16 @@ class Container extends React.Component<Props, State> {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     tabContainer() {
         const {tabMenu} = this.state;
 
         if (tabMenu && tabMenu.length) {
             return tabMenu.map((item: any,i:number) => {
 
-                let path = tryRequire(`.${item.link}`),
-                    LoadComponent;
-
+                let path:any = `.${item.link}`;
                 if (path) {
-                    path = './municipality-management-system'
+                    let LoadComponent = tryRequire(path).default;
 
-                    LoadComponent = tryRequire(path).default;
                     return <div className="tab" style={{display: item.active ? 'block' : 'none'}} key={i}>
                         <LoadComponent
                             location={this.props}

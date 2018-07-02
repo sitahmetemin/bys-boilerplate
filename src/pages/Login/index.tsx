@@ -48,7 +48,7 @@ class Login extends React.Component<Props, State> {
                 <div className="login-cover"></div>
                 <div className="login-form-area">
                     <div className="col-md-8 content-title">
-                        DigiSmart
+                        App
                     </div>
                     <div className="clearfix"></div>
                     <Form onSubmit={() => this.submit()}>
