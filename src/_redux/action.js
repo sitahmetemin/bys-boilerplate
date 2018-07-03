@@ -14,13 +14,8 @@ export const API_FAILURE = 'API_FAILURE';
 
 export function dataAction(actionParameters) {
 
-
-    if (!krax.shouldCallAction(actionParameters)) {
-        return
-    }
+    if (!krax.shouldCallAction(actionParameters)) return;
     let parameters = krax.initialParameters(actionParameters);
-
-
     let source = parameters.source;
     let actionSource = _.get(parameters, ['actions', source]),
         request = _.get(actionSource, ['request']),
@@ -43,11 +38,12 @@ export function dataAction(actionParameters) {
         confirmMessage = _.isString(toast) ? toast : confirmMessage;
     }
 
-    /*let c = true;
+    let c = false;
+    // confirm = false;
+
 
     if (confirm) {
         c = false;
-
         iziToast.show({
             theme: 'dark',
             message: confirmMessage,
@@ -57,11 +53,11 @@ export function dataAction(actionParameters) {
             overlay: true,
             overlayColor: 'rgba(0,0,0,.3)',
             buttons: [
-                ['<button><b>EVET</b></button>', (instance, toast) => {
+                ['<button id="app-confirm-yes"><b>EVET</b></button>', (instance, toast) => {
                     instance.hide({transitionOut: 'fadeOut'}, toast, false);
                     c = true
                 }, true],
-                ['<button>Vazgeç</button>', (instance, toast) => {
+                ['<button id="app-confirm-no">Vazgeç</button>', (instance, toast) => {
                     instance.hide({transitionOut: 'fadeOut'}, toast, false);
                 }],
             ],
@@ -70,27 +66,56 @@ export function dataAction(actionParameters) {
             timeout: 50000000,
             overlayClose: true
         });
-    }*/
 
-    if (method && url) {
+        document.getElementById("app-confirm-yes").addEventListener("click", function () {
 
-        return {
-            types: [API_REQUEST, API_SUCCESS, API_FAILURE],
-            promise: fetch(krax.fetchEndpoint(url), krax.getFetchBody(method, params)),
-            success: (dispatch, response) => {
-                parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', response, source);
-                initialDispatch(parameters, response, dispatch, source)
-            },
-            error: (dispatch, response) => {
-                parameters = krax.fetchUpdateParameters(parameters, actionSource, 'error', response, source)
-                initialDispatch(parameters, response, dispatch, source)
+            if (method && url) {
+                return {
+                    types: [API_REQUEST, API_SUCCESS, API_FAILURE],
+                    promise: fetch(krax.fetchEndpoint(url), krax.getFetchBody(method, params)),
+                    success: (dispatch, response) => {
+                        parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', response, source);
+                        initialDispatch(parameters, response, dispatch, source)
+                    },
+                    error: (dispatch, response) => {
+                        parameters = krax.fetchUpdateParameters(parameters, actionSource, 'error', response, source)
+                        initialDispatch(parameters, response, dispatch, source)
+                    }
+                }
+            } else {
+                return dispatch => {
+                    parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', value, source)
+                    initialDispatch(parameters, value, dispatch, source)
+                }
+            }
+        });
+
+    } else {
+        c= true
+    }
+
+    if (c) {
+        if (method && url) {
+            return {
+                types: [API_REQUEST, API_SUCCESS, API_FAILURE],
+                promise: fetch(krax.fetchEndpoint(url), krax.getFetchBody(method, params)),
+                success: (dispatch, response) => {
+                    parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', response, source);
+                    initialDispatch(parameters, response, dispatch, source)
+                },
+                error: (dispatch, response) => {
+                    parameters = krax.fetchUpdateParameters(parameters, actionSource, 'error', response, source)
+                    initialDispatch(parameters, response, dispatch, source)
+                }
+            }
+        } else {
+            return dispatch => {
+                parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', value, source)
+                initialDispatch(parameters, value, dispatch, source)
             }
         }
     } else {
-        return dispatch => {
-            parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', value, source)
-            initialDispatch(parameters, value, dispatch, source)
-        }
+        return dispatch => {}
     }
 
     function initialDispatch(parameters, response, dispatch, source) {

@@ -78,6 +78,7 @@ class Layout extends Component {
                         method: 'GET',
                         url: '/menu',
                     },
+                    confirm:true,
                     func: (val, status) => this.initialMenu(val.treeMenu.storeMenu.items, status),
                     targetPath: 'treeMenu.storeMenu'
                 }

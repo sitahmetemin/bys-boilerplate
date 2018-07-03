@@ -61,12 +61,20 @@ class Tree extends Component {
         let {fastMenu} = this.state;
 
         if (fastMenu.length === 0) {
-            fastMenu = [val]
+            fastMenu = [{
+                name: val.name,
+                link: val.link,
+                id: val.id
+            }]
         } else {
             let a = _.filter(fastMenu, item => item.id === val.id);
 
             if (a.length === 0) {
-                fastMenu.push(val)
+                fastMenu.push({
+                    name: val.name,
+                    link: val.link,
+                    id: val.id
+                })
             }
         }
 

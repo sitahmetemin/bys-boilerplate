@@ -158,6 +158,24 @@ html {
     position: relative;
     margin-top: -20px; }
 
+.content-title {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 25px;
+  line-height: 25px;
+  font-weight: 300;
+  color: #2C2F38;
+  position: relative; }
+  .content-title:after {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: #000;
+    left: 15px;
+    bottom: 0; }
+
 .page-title {
   padding: 5px 0;
   width: 100%;

@@ -30,9 +30,88 @@
 
     .content {
         position: absolute;
-        width: 100%;
+        width: calc(100% - 50px);
         height: 100%;
         left: 0;
         top: 0;
+
+        .area {
+            padding: 15px;
+
+            .area-box {
+                position: relative;
+                background: white;
+                @include box-shadow(0px 0px 29px rgba(0, 0, 0, 0.09));
+                @include border-radius(6px);
+                @include transition(300ms all);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                width: 250px;
+                margin: 5px;
+                height: 130px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                a {
+                    position: absolute;
+                    left: 15px;
+                    top: 15px;
+                    font-size: 20px;
+                    font-weight: 500;
+                    color: black;
+                }
+
+                .box {
+                    position: absolute;
+                    left: 15px;
+                    bottom: 15px;
+                }
+
+                @for $i from 1 through 8 {
+                    &:nth-child(#{$i}) {
+                        animation-duration: #{$i * 400}ms;
+                    }
+                }
+
+                &:hover {
+                    background: $blue;
+                    color: white;
+
+                    a {
+                        color: white;
+                        text-decoration: none;
+                    }
+
+                    svg {
+                        color: white;
+                        //font-size: 60px;
+                    }
+                }
+
+                svg {
+                    font-size: 40px;
+                    color: $blue;
+                    @include transition(300ms all);
+                }
+            }
+
+
+        }
+    }
+}
+
+.fast-menu-search {
+    input {
+        background: transparent;
+    }
+
+    .select-arrow {
+        svg {
+            color: #ccc
+        }
     }
 }

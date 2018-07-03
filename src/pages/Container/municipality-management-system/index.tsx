@@ -1,8 +1,7 @@
 import * as React from 'react';
-import * as _ from 'lodash';
 import {withRouter} from 'react-router-dom'
 import {TreeMenu} from '../../../components'
-import {Helmet, Scroll} from "../../../_basecomponents"
+import {Helmet, Scroll, Form, Select} from "../../../_basecomponents"
 import './style.css'
 
 interface Props {
@@ -10,11 +9,18 @@ interface Props {
     match: any
 }
 
+interface FastMenu {
+    name: string,
+    link: string,
+    id: number
+}
+
 interface State {
     errorMessage: string,
     datas: string,
     title: string,
-    sidebar: boolean
+    sidebar: boolean,
+    fastMenu: FastMenu[]
 }
 
 class Municipality extends React.Component<Props, State> {
@@ -23,15 +29,19 @@ class Municipality extends React.Component<Props, State> {
     constructor(props: Props, state: State) {
         super(props, state);
 
+        let x:any = localStorage.getItem('fastMenu');
+        let fastMenu = JSON.parse(x);
+
         this.state = {
             ...state,
             title: 'Test',
-            sidebar: false
+            sidebar: false,
+            fastMenu: fastMenu
         }
     }
 
-    redirect(val = '/') {
-        this.props.history.push('/' + _.split(this.props.match.url, '/')[1] + val)
+    redirect(val: string) {
+        this.props.history.push(val)
     }
 
     renderCover() {
@@ -78,14 +88,63 @@ class Municipality extends React.Component<Props, State> {
         return null
     }
 
+    searchSelected(val:any) {
+        console.log('---', val)
+    }
+
     render(): JSX.Element {
+
+        let a: any = localStorage.getItem('storeMenu');
+        let fastMenuData = JSON.parse(a);
 
         return (
             <div className="municipality-management-system">
                 {this.renderSideBar()}
                 <div className="content">
                     {this.renderCover()}
-                    asd
+                    <div className="content-title">
+                        <div className="col-md-6">
+                            Lorem Ipsum
+                        </div>
+                        <div className="col-md-6">
+                            <Form>
+                                <Select
+                                    title="Menü ara"
+                                    titleLeft={true}
+                                    caption="Seçenekler"
+                                    // style={{marginBottom: 15}}
+                                    validate={true}
+                                    autoComplete={'off'}
+                                    autoFocus={true}
+                                    // remote={'https://jsonplaceholder.typicode.com/users?q={{key}}'}
+                                    data={fastMenuData}
+                                    dataShowFields={'name'}
+                                    dataInputSetFields={'name'}
+                                    selectItem={(val:any) => this.searchSelected(val)}
+                                    onChange={(val:any) => this.searchSelected(val)}
+                                    multiSelect
+                                    rounded
+                                    md
+                                    customClass={'fast-menu-search'}
+                                />
+                            </Form>
+                        </div>
+                        <div className="clearfix"></div>
+                    </div>
+                    <div className="area">
+
+                        {
+                            this.state.fastMenu.map((item,i) => {
+                                return <div className="area-box animated slideInLeft" onClick={()=> this.redirect(item.link)} key={i}>
+                                    <div className="box">
+                                        <i className="fal fa-star"></i>
+                                    </div>
+                                    <a>{item.name}</a>
+                                </div>
+                            })
+                        }
+
+                    </div>
                 </div>
             </div>
         );

@@ -25,7 +25,79 @@
 
 .municipality-management-system .content {
   position: absolute;
-  width: 100%;
+  width: calc(100% - 50px);
   height: 100%;
   left: 0;
   top: 0; }
+  .municipality-management-system .content .area {
+    padding: 15px; }
+    .municipality-management-system .content .area .area-box {
+      position: relative;
+      background: white;
+      -webkit-box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.09);
+      -moz-box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.09);
+      box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.09);
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+      -webkit-transition: 300ms all;
+      -moz-transition: 300ms all;
+      -o-transition: 300ms all;
+      transition: 300ms all;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      width: 250px;
+      margin: 5px;
+      height: 130px; }
+      .municipality-management-system .content .area .area-box:first-child {
+        margin-left: 0; }
+      .municipality-management-system .content .area .area-box a {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        color: black; }
+      .municipality-management-system .content .area .area-box .box {
+        position: absolute;
+        left: 15px;
+        bottom: 15px; }
+      .municipality-management-system .content .area .area-box:nth-child(1) {
+        animation-duration: 400ms; }
+      .municipality-management-system .content .area .area-box:nth-child(2) {
+        animation-duration: 800ms; }
+      .municipality-management-system .content .area .area-box:nth-child(3) {
+        animation-duration: 1200ms; }
+      .municipality-management-system .content .area .area-box:nth-child(4) {
+        animation-duration: 1600ms; }
+      .municipality-management-system .content .area .area-box:nth-child(5) {
+        animation-duration: 2000ms; }
+      .municipality-management-system .content .area .area-box:nth-child(6) {
+        animation-duration: 2400ms; }
+      .municipality-management-system .content .area .area-box:nth-child(7) {
+        animation-duration: 2800ms; }
+      .municipality-management-system .content .area .area-box:nth-child(8) {
+        animation-duration: 3200ms; }
+      .municipality-management-system .content .area .area-box:hover {
+        background: #1A77E8;
+        color: white; }
+        .municipality-management-system .content .area .area-box:hover a {
+          color: white;
+          text-decoration: none; }
+        .municipality-management-system .content .area .area-box:hover svg {
+          color: white; }
+      .municipality-management-system .content .area .area-box svg {
+        font-size: 40px;
+        color: #1A77E8;
+        -webkit-transition: 300ms all;
+        -moz-transition: 300ms all;
+        -o-transition: 300ms all;
+        transition: 300ms all; }
+
+.fast-menu-search input {
+  background: transparent; }
+
+.fast-menu-search .select-arrow svg {
+  color: #ccc; }
