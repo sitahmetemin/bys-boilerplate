@@ -6,6 +6,7 @@ import {dataAction, store} from "../../_redux";
 import './style.css'
 import {getNestedChildren} from "../../_functions";
 import {data} from "../../components/Sidebar/data";
+// import config from '../../config'
 
 class Layout extends Component {
 
