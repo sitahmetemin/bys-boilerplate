@@ -3,7 +3,14 @@ import moment from 'moment';
 import en from './en';
 import tr from './tr';
 import Cache from 'i18next-localstorage-cache';
-let language = localStorage.getItem('language') || 'tr';
+
+let lang = JSON.parse(localStorage.getItem("userInfo"));
+let language = 'tr';
+
+if (lang && lang.language) {
+    language = lang.language
+}
+
 
 i18next
     .use(Cache)
@@ -21,14 +28,6 @@ i18next
     }, function (err, t) {
         // initialized and ready to go!
     });
-
-i18next.on('languageChanged', function(lng) {
-    // E.g. set the moment locale with the current language
-    moment.locale(lng);
-
-    // then re-render your app
-
-});
 
 
 export default i18next;

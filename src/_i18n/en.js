@@ -1,16 +1,19 @@
 import _ from 'lodash'
-import municipality_home from './EN/Municipality/home';
-import municipality_menu from './EN/Municipality/tree-menu';
+import municipality_system_management from './EN/Municipality/SystemManagement';
 
 function Municipality() {
     this.municipality = {
-        ...municipality_home,
-        ...municipality_menu
+        ...municipality_system_management,
     };
 }
+
+
 
 let en = _.assignIn(
     {},
     new Municipality()
 );
+
+
+console.log('Lang', en)
 export default en

@@ -29,8 +29,6 @@ export default class Select extends Component {
             })
         }
 
-        console.log('---', this.props)
-
         this.state = {
             ...this.props,
             uuid: uuidv4(),
@@ -204,7 +202,7 @@ export default class Select extends Component {
     searchSelectItem(val) {
 
         if (val && _.isObject(val)) {
-            const {selectItem, formContext, multiSelect, selectMaxSize} = this.props;
+            const {selectItem, formContext, multiSelect, selectMaxSize, dataShowFields} = this.props;
             let showStr = inputSetString(this.state, val);
 
             let {uuid, validate, dataIndex, multiData} = this.state;
@@ -226,7 +224,10 @@ export default class Select extends Component {
                 }
 
             } else {
-                selectVal = val
+                selectVal = val;
+                // showStr = !_.isEmpty(val) ? val[dataShowFields] : '';
+
+                // console.log('S',showStr)
             }
 
             this.setState({
@@ -243,7 +244,7 @@ export default class Select extends Component {
                     showStr = multiData.length ? showStr : ''
                 }
 
-                !multiSelect && this.openSelect();
+                // !multiSelect && this.openSelect();
                 formContext.validate(uuid, showStr, validate, this.state.manualErrorMessage);
                 !multiSelect && selectItem && this.props.selectItem(selectVal)
             })

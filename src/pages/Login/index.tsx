@@ -7,10 +7,17 @@ interface Props {
     history: any
 }
 
+interface Language {
+    name: string,
+    key: string,
+    id: string
+}
+
 interface State {
     errorMessage: string,
     email: string,
-    password: string
+    password: string,
+    language: Language
 }
 
 class Login extends React.Component<Props, State> {
@@ -22,7 +29,13 @@ class Login extends React.Component<Props, State> {
         this.state = {
             ...state,
             email: 'mail@mehmetokanozcan.com',
-            password: '123'
+            password: '123',
+            language: {
+                name: 'Türkçe',
+                key: 'tr',
+                id: 'tr-TR'
+            }
+
         }
     }
 
@@ -37,13 +50,23 @@ class Login extends React.Component<Props, State> {
         localStorage.setItem('userInfo', JSON.stringify({
             email: this.state.email,
             name: 'Mehmet Okan Ozcan',
-            token: '123123123'
+            token: '123123123',
+            language: this.state.language.key
         }));
 
-        this.props.history.push("/");
+        window.location.href = '/'
+    }
+
+    selectLanguage(val: Language) {
+        this.setState({
+            ...this.state,
+            language: val
+        })
     }
 
     render(): JSX.Element {
+
+        console.log('--Th', this.state)
 
         return (
             <div className="login">
@@ -84,9 +107,7 @@ class Login extends React.Component<Props, State> {
                         <div className="col-md-8">
                             <Select
                                 caption="Dil Seçin"
-                                onChange={(val:any) => {
-                                    this.handleChange(val, 'c')
-                                }}
+                                selectItem={(val:Language)=> this.selectLanguage(val)}
                                 autoComplete={'off'}
                                 validate={true}
                                 data={[
@@ -101,13 +122,9 @@ class Login extends React.Component<Props, State> {
                                         id: 'en-US'
                                     }
                                 ]}
+                                selected={this.state.language}
                                 dataShowFields={'name'}
                                 dataInputSetFields={'name'}
-                                selected={{
-                                    name: 'Türkçe',
-                                    key: 'tr',
-                                    id: 'tr-TR'
-                                }} // Object
                             />
                         </div>
                         <div className="clearfix"></div>

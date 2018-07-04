@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as _ from "lodash";
 import {withRouter} from 'react-router-dom'
 import {Button, Form, Helmet, Input, Scroll, Select} from '../../../../../_basecomponents'
 import {TreeMenu} from '../../../../../components'
-import * as _ from "lodash";
+import {t} from '../../../../../_functions'
 
 interface Props {
     history: any,
@@ -39,7 +40,7 @@ class Functions extends React.Component<Props, State> {
 
         this.state = {
             ...state,
-            title: 'Fonksiyonlar',
+            title: t('municipality.functions.pageTitle'),
             sidebar: false,
             selectData: [
                 {
@@ -183,8 +184,7 @@ class Functions extends React.Component<Props, State> {
         if (sidebar) {
             return <div className="sidebar-menu">
                 <Scroll scrollclass="tree-menu-area">
-                    <TreeMenu onChange={() => {
-                    }}/>
+                    <TreeMenu onChange={() => {}}/>
                 </Scroll>
             </div>
         }
@@ -208,11 +208,11 @@ class Functions extends React.Component<Props, State> {
                     </li>
                     <li onClick={() => this.redirect('/')}>
                         <i className="fal fa-arrow-left"></i>
-                        Geri
+                        {t('municipality.functions.buttons.back')}
                     </li>
                     <li onClick={() => this.redirect('/')}>
                         <i className="fas fa-box"></i>
-                        Fonksiyonlar
+                        {title}
                     </li>
                 </ul>
             </div>
@@ -227,7 +227,7 @@ class Functions extends React.Component<Props, State> {
                         type="submit"
                         button="primary"
                         bold={true}
-                        text="Yeni ekle"
+                        text={t('municipality.functions.buttons.addNew')}
                         small
                         width={'200px'}
                     />
@@ -241,7 +241,6 @@ class Functions extends React.Component<Props, State> {
         console.log('---Ser', val)
     }
 
-
     public render() {
 
         return (
@@ -249,11 +248,11 @@ class Functions extends React.Component<Props, State> {
                 {this.renderSideBar()}
                 <div className="content">
                     {this.renderCover()}
-                    <div className="content-area padder-v ">
+                    <div className="content-area padder-v width-50-percent">
                         <Form onSubmit={() => this.submit()}>
                             <div className="col-md-4">
                                 <Input
-                                    caption="Fonksiyon Adı"
+                                    caption={t('municipality.functions.form.functionName')}
                                     type="text"
                                     value={this.state.name}
                                     onChange={(val: string) => this.handleChange(val, 'name')}
@@ -266,7 +265,7 @@ class Functions extends React.Component<Props, State> {
                             </div>
                             <div className="col-md-4">
                                 <Input
-                                    caption="Açıklama"
+                                    caption={t('municipality.functions.form.functionDescription')}
                                     type="text"
                                     value={this.state.description}
                                     onChange={(val: string) => this.handleChange(val, 'description')}
@@ -278,7 +277,7 @@ class Functions extends React.Component<Props, State> {
                             </div>
                             <div className="col-md-4">
                                 <Select
-                                    caption="Seçenekler"
+                                    caption={t('municipality.functions.form.select')}
                                     onChange={(val: any) => {
                                         this.handleChange(val, 'c')
                                     }}
@@ -304,7 +303,7 @@ class Functions extends React.Component<Props, State> {
                                     button="black-line"
                                     upperCase={false}
                                     bold={true}
-                                    text="Ekle"
+                                    text={t('municipality.functions.form.addButton')}
                                 />
                             </div>
                             <div className="clearfix"></div>
