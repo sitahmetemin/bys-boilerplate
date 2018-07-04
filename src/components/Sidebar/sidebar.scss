@@ -1,12 +1,12 @@
 @import "../../_styles/mixin";
 
 .app-sidebar-back {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 10;
-  background: rgba(0, 0, 0, .2);
-  animation-duration: 200ms;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+    background: rgba(0, 0, 0, .2);
+    animation-duration: 200ms;
 }
 
 .app-page-sidebar-container {
@@ -14,198 +14,208 @@
 }
 
 .app-sidebar {
-  background: #323643;
-  height: 100%;
-  position: fixed;
-  width: 50px;
-  z-index: 11;
-  animation-duration: 300ms;
-
-  .close-button {
-    position: absolute;
-    left: 288px;
-    width: 25px;
-    height: 25px;
-    background: #1A77E8;
-    color: white;
-    z-index: 11;
-    bottom: 100px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    svg {
-      color: white;
-      font-size: 15px;
-      margin-left: -3px;
-    }
-  }
-
-  .left {
+    background: #323643;
+    height: 100%;
+    position: fixed;
     width: 50px;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
+    z-index: 11;
+    animation-duration: 300ms;
 
-    ul {
-      li {
-
-        a {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 50px;
-          cursor: pointer;
-          position: relative;
-          @include transition(300ms all);
-
-          > span.count {
-            @include border-radius(3px);
-            @include box-shadow(0 3px 15px -3px rgba(230, 230, 230, 0.67));
-            background: $red;
-            color: white;
-            font-size: 8px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 0 4px;
-            height: 16px;
-          }
-
-          svg,i {
-            color: rgba(255,255,255, .9);
-            font-size: 18px;
-
-            &[data-prefix="fal"] {
-              display: none;
-            }
-            &[data-prefix="fas"] {
-              display: block;
-            }
-          }
-
-          &:hover, &:active, &:focus {
-            background: rgba(255, 255, 255, .2);
-            text-decoration: none;
-
-            svg {
-              &[data-prefix="fal"] {
-                display: block;
-              }
-              &[data-prefix="fas"] {
-                display: none;
-              }
-            }
-          }
-
-          &.active {
-            background: #DFE5EB;
-          }
-
-
-        }
-
-        /*&:nth-child(1) {
-          border-bottom: 1px solid rgba(0,0,0,.04);
-
-          svg {
-            &[data-prefix="fal"] {
-              display: block;
-            }
-            &[data-prefix="fas"] {
-              display: block;
-            }
-          }
-        }*/
-
-      }
-    }
-  }
-  .right {
-    width: 250px;
-    height: 100%;
-    position: fixed;
-    left: 50px;
-    border-right: 1px solid rgba(0, 0, 0, .09);
-    background: white;
-    top: 0;
-    padding: 15px 0 15px 15px;
-
-    .sidebar-menu {
-      height: 100%;
-
-      .tree-menu-area {
-        height: 100%;
-        .scrollbar {
-          width: 2px !important;
-          margin-left: 7px !important;
-          @include border-radius(4px);
-        }
-      }
-    }
-
-  }
-}
-
-.digi-sidebar-icon {
-  position: fixed;
-  left: 3px;
-  top: 55px;
-  height: calc(100% - 58px);
-  width: 50px;
-  z-index: 4;
-  animation-duration: 400ms;
-  background: #1A77E8;
-  text-align: center;
-  @include border-radius(2px);
-
-  ul {
-    li {
-
-      a {
-        width: 100%;
+    .close-button {
+        position: absolute;
+        left: 288px;
+        width: 25px;
+        height: 25px;
+        background: #1A77E8;
+        color: white;
+        z-index: 11;
+        bottom: 100px;
+        border-radius: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 50px;
         cursor: pointer;
-        position: relative;
 
-        span.count {
-          @include border-radius(3px);
-          @include box-shadow(0 3px 15px -3px rgba(230, 230, 230, 0.67));
-          background: $red;
-          color: white;
-          font-size: 8px;
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 2px 4px;
-        }
-
-        i {
-          color: rgba(255, 255, 255, .4);
-          font-size: 20px;
-        }
-
-        &:hover, &.active, &:active, &:focus {
-          background: rgba(255, 255, 255, .2);
-          text-decoration: none;
-
-          i {
+        svg {
             color: white;
-          }
+            font-size: 15px;
+            margin-left: -3px;
         }
-      }
+    }
 
-      &:nth-child(1) {
-        border-bottom: 1px solid rgba(255, 255, 255, .2);
-      }
+    .left {
+        width: 50px;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: auto;
+
+        ul {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+
+            &.bottom {
+                top: auto;
+                bottom: 0;
+            }
+
+            li {
+
+                a {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 50px;
+                    cursor: pointer;
+                    position: relative;
+                    @include transition(300ms all);
+
+                    > span.count {
+                        @include border-radius(3px);
+                        @include box-shadow(0 3px 15px -3px rgba(230, 230, 230, 0.67));
+                        background: $red;
+                        color: white;
+                        font-size: 8px;
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        padding: 0 4px;
+                        height: 16px;
+                    }
+
+                    svg, i {
+                        color: rgba(255, 255, 255, .9);
+                        font-size: 18px;
+
+                        &[data-prefix="fal"] {
+                            display: none;
+                        }
+                        &[data-prefix="fas"] {
+                            display: block;
+                        }
+                    }
+
+                    &:hover, &:active, &:focus {
+                        background: rgba(255, 255, 255, .2);
+                        text-decoration: none;
+
+                        svg {
+                            &[data-prefix="fal"] {
+                                display: block;
+                            }
+                            &[data-prefix="fas"] {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    &.active {
+                        background: #DFE5EB;
+                    }
+
+                }
+
+                /*&:nth-child(1) {
+                  border-bottom: 1px solid rgba(0,0,0,.04);
+
+                  svg {
+                    &[data-prefix="fal"] {
+                      display: block;
+                    }
+                    &[data-prefix="fas"] {
+                      display: block;
+                    }
+                  }
+                }*/
+
+            }
+        }
+    }
+    .right {
+        width: 250px;
+        height: 100%;
+        position: fixed;
+        left: 50px;
+        border-right: 1px solid rgba(0, 0, 0, .09);
+        background: white;
+        top: 0;
+        padding: 15px 0 15px 15px;
+
+        .sidebar-menu {
+            height: 100%;
+
+            .tree-menu-area {
+                height: 100%;
+                .scrollbar {
+                    width: 2px !important;
+                    margin-left: 7px !important;
+                    @include border-radius(4px);
+                }
+            }
+        }
 
     }
-  }
+}
+
+.digi-sidebar-icon {
+    position: fixed;
+    left: 3px;
+    top: 55px;
+    height: calc(100% - 58px);
+    width: 50px;
+    z-index: 4;
+    animation-duration: 400ms;
+    background: #1A77E8;
+    text-align: center;
+    @include border-radius(2px);
+
+    ul {
+        li {
+
+            a {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 50px;
+                cursor: pointer;
+                position: relative;
+
+                span.count {
+                    @include border-radius(3px);
+                    @include box-shadow(0 3px 15px -3px rgba(230, 230, 230, 0.67));
+                    background: $red;
+                    color: white;
+                    font-size: 8px;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    padding: 2px 4px;
+                }
+
+                i {
+                    color: rgba(255, 255, 255, .4);
+                    font-size: 20px;
+                }
+
+                &:hover, &.active, &:active, &:focus {
+                    background: rgba(255, 255, 255, .2);
+                    text-decoration: none;
+
+                    i {
+                        color: white;
+                    }
+                }
+            }
+
+            &:nth-child(1) {
+                border-bottom: 1px solid rgba(255, 255, 255, .2);
+            }
+
+        }
+    }
 }

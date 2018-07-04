@@ -29,6 +29,8 @@ export default class Select extends Component {
             })
         }
 
+        console.log('---', this.props)
+
         this.state = {
             ...this.props,
             uuid: uuidv4(),
@@ -228,7 +230,7 @@ export default class Select extends Component {
             }
 
             this.setState({
-                value:  multipleData.length ? showStr : '',
+                value:  showStr,
                 selected: multipleData.length ? val : null,
                 multiData: multipleData,
                 dataIndex: multiSelect ? dataIndex : null,

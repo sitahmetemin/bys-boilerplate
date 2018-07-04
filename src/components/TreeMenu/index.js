@@ -64,7 +64,9 @@ class Tree extends Component {
             fastMenu = [{
                 name: val.name,
                 link: val.link,
-                id: val.id
+                id: val.id,
+                parentId: val.parentId,
+                vsm1progsId: val.vsm1progsId
             }]
         } else {
             let a = _.filter(fastMenu, item => item.id === val.id);
@@ -73,7 +75,9 @@ class Tree extends Component {
                 fastMenu.push({
                     name: val.name,
                     link: val.link,
-                    id: val.id
+                    id: val.id,
+                    parentId: val.parentId,
+                    vsm1progsId: val.vsm1progsId
                 })
             }
         }
@@ -95,6 +99,11 @@ class Tree extends Component {
             actions: {
                 fastMenu: {
                     value: value,
+                    success: {
+                        messages: [{
+                            text: 'Menüye eklendi'
+                        }]
+                    },
                     targetPath: 'fastMenu'
                 }
             }

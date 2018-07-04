@@ -41,8 +41,28 @@ export function dataAction(actionParameters) {
     let c = false;
     // confirm = false;
 
+    if (method && url) {
+        return {
+            types: [API_REQUEST, API_SUCCESS, API_FAILURE],
+            promise: fetch(krax.fetchEndpoint(url), krax.getFetchBody(method, params)),
+            success: (dispatch, response) => {
+                parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', response, source);
+                initialDispatch(parameters, response, dispatch, source)
+            },
+            error: (dispatch, response) => {
+                parameters = krax.fetchUpdateParameters(parameters, actionSource, 'error', response, source)
+                initialDispatch(parameters, response, dispatch, source)
+            }
+        }
+    } else {
+        return dispatch => {
+            parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', value, source)
+            initialDispatch(parameters, value, dispatch, source)
+        }
+    }
 
-    if (confirm) {
+
+    /*if (confirm) {
         c = false;
         iziToast.show({
             theme: 'dark',
@@ -116,7 +136,7 @@ export function dataAction(actionParameters) {
         }
     } else {
         return dispatch => {}
-    }
+    }*/
 
     function initialDispatch(parameters, response, dispatch, source) {
         parameterDispatch(parameters, response, dispatch, source)

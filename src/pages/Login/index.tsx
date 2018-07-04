@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {withRouter} from 'react-router-dom'
-import {Button, Form, Input, Checkbox} from '../../_basecomponents'
+import {Button, Form, Input, Checkbox, Select} from '../../_basecomponents'
 import './style.css'
 
 interface Props {
@@ -49,8 +49,8 @@ class Login extends React.Component<Props, State> {
             <div className="login">
                 <div className="login-cover"></div>
                 <div className="login-form-area">
-                    <div className="col-md-8 content-title">
-                        App
+                    <div className="col-md-8 login-content-title">
+                        DigiSmart
                     </div>
                     <div className="clearfix"></div>
                     <Form onSubmit={() => this.submit()}>
@@ -81,7 +81,37 @@ class Login extends React.Component<Props, State> {
                                 autoComplete={false}
                             />
                         </div>
+                        <div className="col-md-8">
+                            <Select
+                                caption="Dil Seçin"
+                                onChange={(val:any) => {
+                                    this.handleChange(val, 'c')
+                                }}
+                                autoComplete={'off'}
+                                validate={true}
+                                data={[
+                                    {
+                                        name: 'Türkçe',
+                                        key: 'tr',
+                                        id: 'tr-TR'
+                                    },
+                                    {
+                                        name: 'English',
+                                        key: 'en',
+                                        id: 'en-US'
+                                    }
+                                ]}
+                                dataShowFields={'name'}
+                                dataInputSetFields={'name'}
+                                selected={{
+                                    name: 'Türkçe',
+                                    key: 'tr',
+                                    id: 'tr-TR'
+                                }} // Object
+                            />
+                        </div>
                         <div className="clearfix"></div>
+                        <hr/>
                         <div className="col-md-8">
                             <Checkbox
                                 id={3}

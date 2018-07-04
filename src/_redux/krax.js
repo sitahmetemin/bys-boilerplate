@@ -2,6 +2,7 @@ import is from "is_js";
 import _ from "lodash";
 import {store} from './store';
 import {Messages} from "../_functions";
+import config from '../config';
 
 _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
@@ -68,8 +69,9 @@ export function fetchUpdateParameters(parameters, actionSource, type, response, 
 
 export function fetchEndpoint(url) {
     if (process.env.NODE_ENV === 'development')  {
-        url = `http://localhost:4000${url}`
+        url = `${config.apiUrlDev}${url}`
     }else if (process.env.NODE_ENV === 'production') {
+        url = `${config.apiUrlProd}${url}`
     }
 
     if (_.includes(url, '{{') && _.includes(url, '}}')) {

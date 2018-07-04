@@ -37,63 +37,72 @@
     height: 100%;
     position: fixed;
     left: 0;
-    top: 0; }
-    .app-sidebar .left ul li {
-      /*&:nth-child(1) {
-          border-bottom: 1px solid rgba(0,0,0,.04);
+    top: 0;
+    bottom: auto; }
+    .app-sidebar .left ul {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0; }
+      .app-sidebar .left ul.bottom {
+        top: auto;
+        bottom: 0; }
+      .app-sidebar .left ul li {
+        /*&:nth-child(1) {
+                  border-bottom: 1px solid rgba(0,0,0,.04);
 
-          svg {
-            &[data-prefix="fal"] {
-              display: block;
-            }
-            &[data-prefix="fas"] {
-              display: block;
-            }
-          }
-        }*/ }
-      .app-sidebar .left ul li a {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 50px;
-        cursor: pointer;
-        position: relative;
-        -webkit-transition: 300ms all;
-        -moz-transition: 300ms all;
-        -o-transition: 300ms all;
-        transition: 300ms all; }
-        .app-sidebar .left ul li a > span.count {
-          -webkit-border-radius: 3px;
-          -moz-border-radius: 3px;
-          border-radius: 3px;
-          -webkit-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
-          -moz-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
-          box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
-          background: #F71C6C;
-          color: white;
-          font-size: 8px;
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 0 4px;
-          height: 16px; }
-        .app-sidebar .left ul li a svg, .app-sidebar .left ul li a i {
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 18px; }
-          .app-sidebar .left ul li a svg[data-prefix="fal"], .app-sidebar .left ul li a i[data-prefix="fal"] {
-            display: none; }
-          .app-sidebar .left ul li a svg[data-prefix="fas"], .app-sidebar .left ul li a i[data-prefix="fas"] {
-            display: block; }
-        .app-sidebar .left ul li a:hover, .app-sidebar .left ul li a:active, .app-sidebar .left ul li a:focus {
-          background: rgba(255, 255, 255, 0.2);
-          text-decoration: none; }
-          .app-sidebar .left ul li a:hover svg[data-prefix="fal"], .app-sidebar .left ul li a:active svg[data-prefix="fal"], .app-sidebar .left ul li a:focus svg[data-prefix="fal"] {
-            display: block; }
-          .app-sidebar .left ul li a:hover svg[data-prefix="fas"], .app-sidebar .left ul li a:active svg[data-prefix="fas"], .app-sidebar .left ul li a:focus svg[data-prefix="fas"] {
-            display: none; }
-        .app-sidebar .left ul li a.active {
-          background: #DFE5EB; }
+                  svg {
+                    &[data-prefix="fal"] {
+                      display: block;
+                    }
+                    &[data-prefix="fas"] {
+                      display: block;
+                    }
+                  }
+                }*/ }
+        .app-sidebar .left ul li a {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 50px;
+          cursor: pointer;
+          position: relative;
+          -webkit-transition: 300ms all;
+          -moz-transition: 300ms all;
+          -o-transition: 300ms all;
+          transition: 300ms all; }
+          .app-sidebar .left ul li a > span.count {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+            -moz-box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+            box-shadow: 0 3px 15px -3px rgba(230, 230, 230, 0.67);
+            background: #F71C6C;
+            color: white;
+            font-size: 8px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0 4px;
+            height: 16px; }
+          .app-sidebar .left ul li a svg, .app-sidebar .left ul li a i {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px; }
+            .app-sidebar .left ul li a svg[data-prefix="fal"], .app-sidebar .left ul li a i[data-prefix="fal"] {
+              display: none; }
+            .app-sidebar .left ul li a svg[data-prefix="fas"], .app-sidebar .left ul li a i[data-prefix="fas"] {
+              display: block; }
+          .app-sidebar .left ul li a:hover, .app-sidebar .left ul li a:active, .app-sidebar .left ul li a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            text-decoration: none; }
+            .app-sidebar .left ul li a:hover svg[data-prefix="fal"], .app-sidebar .left ul li a:active svg[data-prefix="fal"], .app-sidebar .left ul li a:focus svg[data-prefix="fal"] {
+              display: block; }
+            .app-sidebar .left ul li a:hover svg[data-prefix="fas"], .app-sidebar .left ul li a:active svg[data-prefix="fas"], .app-sidebar .left ul li a:focus svg[data-prefix="fas"] {
+              display: none; }
+          .app-sidebar .left ul li a.active {
+            background: #DFE5EB; }
   .app-sidebar .right {
     width: 250px;
     height: 100%;

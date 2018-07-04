@@ -1,37 +1,19 @@
 import * as React from 'react';
-import {withRouter} from 'react-router-dom'
+// import './style.css'
 
-interface Props {
-    baz: number;
-}
+class Home extends React.Component<{},{}> {
 
-interface State {
-    bar: number;
-}
-
-class HomeComponent extends React.Component<Props, State> {
-    public state: State;
-    constructor(props: Props, state: State) {
-        super(props, state);
-        this.state = {
-            bar: 123,
-        };
-    }
-
-    componentDidMount() {
-
-
-
-    }
-
-
-    public render() {
-
+    render() {
         return (
-            <div>sdadsf</div>
-        )
+            <div className="notfound">
+                <div className="container text-center">
+                    <h1 data-text="DigiSmart">DigiSmart</h1>
+                    <span>Belediye Yönetim Sistemi</span>
+                    <div className="clearfix"></div>
+                </div>
+            </div>
+        );
     }
 }
 
-
-export default withRouter((HomeComponent as any))
+export default Home

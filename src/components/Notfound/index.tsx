@@ -1,33 +1,14 @@
 import * as React from 'react';
 import './style.css'
 
-interface Props {
-
-}
-
-interface State {
-    sideBar: boolean;
-}
-
-class Notfound extends React.Component<Props,State> {
-    public state: State;
-
-    constructor(props: Props, state: State) {
-        super(props, state);
-
-    }
+class Notfound extends React.Component<{},{}> {
 
     render() {
-
         return (
             <div className="notfound">
-                <div className="container">
-                    <div className="col-md-6 text-right">
-                        404
-                    </div>
-                    <div className="col-md-6 text-left">
-                        Böyle bir sayfa mevcut değil
-                    </div>
+                <div className="container text-center">
+                    <h1 data-text="404">404</h1>
+                    <span>Böyle bir sayfa bulunamadı</span>
                     <div className="clearfix"></div>
                 </div>
             </div>

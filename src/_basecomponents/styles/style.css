@@ -184,7 +184,8 @@ img {
       -moz-transition: 0.2s ease all;
       -webkit-transition: 0.2s ease all;
       z-index: 1;
-      cursor: text; }
+      cursor: text;
+      text-align: left; }
       .app-base-component-container > .app-form-edit-container label.app-placeholder-label.active {
         color: #39495B;
         font-weight: 500; }

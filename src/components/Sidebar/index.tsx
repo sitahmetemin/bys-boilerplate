@@ -47,6 +47,10 @@ class Sidebar extends React.Component<Props, State> {
         this.props.history.push(val.link)
     }
 
+    logout() {
+        localStorage.removeItem("userInfo");
+        this.props.history.push("/login");
+    }
 
     renderMenu() {
         return <div className="app-page-sidebar-container">
@@ -75,6 +79,24 @@ class Sidebar extends React.Component<Props, State> {
                                 </li>
                             })
                         }
+                    </ul>
+                    <ul className={'bottom'}>
+                        <li key={'111'}>
+                            <Tooltip
+                                id="popover-trigger-hover-focus"
+                                position="right"
+                                text={'Çıkış'}
+                                title=""
+                                type="tooltip"
+                            >
+                                <a
+                                    onClick={() => this.logout()}
+                                >
+                                    <i className={`fas fa-power-off`}></i>
+                                    <i className={`fal fa-power-off`}></i>
+                                </a>
+                            </Tooltip>
+                        </li>
                     </ul>
                 </div>
             </div>

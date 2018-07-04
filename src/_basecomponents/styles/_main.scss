@@ -165,6 +165,7 @@ a {text-decoration: none;}img {border: 0;}:focus {outline: 0;}
                 -webkit-transition: 0.2s ease all;
                 z-index: 1;
                 cursor: text;
+                text-align: left;
 
                 &.active {
                     color: #39495B;
