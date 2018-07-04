@@ -7,6 +7,8 @@ import Form from './Form';
 import Tooltip from './Tooltip';
 import Scroll from './Scroll';
 import Helmet from './Helmet';
+import Table from './Table';
+import TableHeader from './Table/header';
 
 export {
     Form,
@@ -17,5 +19,8 @@ export {
     Checkbox,
     Tooltip,
     Scroll,
-    Helmet
+    Helmet,
+    Table,
+    TableHeader
+
 }
