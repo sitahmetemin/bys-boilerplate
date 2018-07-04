@@ -14,6 +14,4 @@ let tr = _.assignIn(
     new Municipality()
 );
 
-
-console.log('Lang', tr)
 export default tr

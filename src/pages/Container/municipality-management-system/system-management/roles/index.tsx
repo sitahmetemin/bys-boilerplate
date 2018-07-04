@@ -1,25 +1,33 @@
 import * as React from 'react';
 import {withRouter} from 'react-router-dom'
-import {Button, Form, Input,Helmet, Scroll, Table, TableHeader} from '../../../../../_basecomponents'
+import {Button, Form, Input,Helmet, Scroll, Table, TableHeader, RadioGroup, Checkbox} from '../../../../../_basecomponents'
 import {connect} from 'react-redux';
 import {dataAction, store} from "../../../../../_redux";
 import {TreeMenu} from '../../../../../components'
 import * as _ from "lodash";
-
 
 interface Props {
     history: any,
     match: any
 }
 
-interface State {
+interface TempData {
     name: string,
     description: string,
+    adk: string,
+    type: number | string,
+    ybs: number | string,
+    mobileOffice: boolean
+}
+
+interface State {
     errorMessage: string,
     sidebar: boolean,
     title: string,
     roles: any,
-    formContainer: boolean
+    formContainer: boolean,
+    pageType: string,
+    tempData: TempData
 }
 
 class AppComp extends React.Component<Props, State> {
@@ -32,7 +40,16 @@ class AppComp extends React.Component<Props, State> {
             ...state,
             title: 'Roller',
             sidebar: false,
-            formContainer: false
+            formContainer: false,
+            pageType: 'default',
+            tempData: {
+                name: '',
+                description: '',
+                adk: '',
+                type: '',
+                ybs: '',
+                mobileOffice: false
+            }
         }
     }
 
@@ -43,12 +60,19 @@ class AppComp extends React.Component<Props, State> {
     handleChange(val: string, key: string): void {
         this.setState({
             ...this.state,
-            [key]: val
+            tempData: {
+                ...this.state.tempData,
+                [key]: val
+            }
         })
     }
 
     submit(): void {
-
+        this.setState({
+            formContainer: !this.state.formContainer
+        },() => {
+            this.action('addData', null)
+        })
     }
 
     initialGetData(val:any, status: string) {
@@ -133,7 +157,7 @@ class AppComp extends React.Component<Props, State> {
                     func: (val:any, status:string) => this.initialGetData(val.mms.systemManagement.roles.data, status),
                     targetPath: 'mms.systemManagement.roles.data'
                 },
-                remove: {
+                removeData: {
                     request: {
                         method: 'DELETE',
                         url: `/roles/${value}`,
@@ -144,6 +168,20 @@ class AppComp extends React.Component<Props, State> {
                         }]
                     },
                     targetPath: 'mms.systemManagement.roles.data'
+                },
+                addData: {
+                    request: {
+                        method: 'POST',
+                        url: `/roles`,
+                        params: this.state.tempData
+                    },
+                    success: {
+                        messages: [{
+                            text: 'Role eklendi'
+                        }],
+                        triggers: ['getData']
+                    },
+                    targetPath: 'mms.systemManagement.roles.item'
                 }
             }
         };
@@ -194,16 +232,15 @@ class AppComp extends React.Component<Props, State> {
                 </div>
                 <div className="content-area padder-v">
                     <Form onSubmit={() => this.submit()}>
-                        <div className="container width-50-percent">
+                        <div className="width-50-percent">
                             <div className="col-md-6">
                                 <Input
                                     caption="Rol Adı"
                                     type="text"
-                                    value={this.state.name}
+                                    value={this.state.tempData.name}
                                     onChange={(val: string)=> this.handleChange(val, 'name')}
                                     style={{marginBottom: 15}}
-                                    validate={['required','email']}
-                                    errorMessage={this.state.errorMessage}
+                                    validate={['required']}
                                     autoComplete={false}
                                     autoFocus={true}
                                 />
@@ -212,12 +249,62 @@ class AppComp extends React.Component<Props, State> {
                                 <Input
                                     caption="Açıklama"
                                     type="text"
-                                    value={this.state.description}
+                                    value={this.state.tempData.description}
                                     onChange={(val: string)=> this.handleChange(val, 'description')}
                                     style={{marginBottom: 15}}
                                     validate={['required']}
-                                    errorMessage={this.state.errorMessage}
                                     autoComplete={false}
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <Input
+                                    caption="Active Directory Key"
+                                    type="text"
+                                    value={this.state.tempData.adk}
+                                    onChange={(val: string)=> this.handleChange(val, 'adk')}
+                                    style={{marginBottom: 15}}
+                                    validate={['required']}
+                                    autoComplete={false}
+                                />
+                            </div>
+                            <hr/>
+                            <div className="col-md-12 no-margin">
+                                <RadioGroup
+                                    title={'Tipi'}
+                                    data={[
+                                        {
+                                            label: 'E-Kent',
+                                            value: 1,
+                                            disabled: false
+                                        },
+                                        {
+                                            label: 'Döküman',
+                                            value: 2,
+                                            disabled: false
+                                        },
+                                        {
+                                            label: 'Mobil Uygulama',
+                                            value: 3,
+                                            disabled: false
+                                        }
+                                    ]}
+                                    labelField="label"
+                                    valueField="value"
+                                    disabledField="disabled"
+                                    name="check_box_name"
+                                    checked={this.state.tempData.type}
+                                    checkedField="value"
+                                    onChange={(val: any)=> this.handleChange(val, 'type')}
+                                    row={3}
+                                />
+                            </div>
+                            <div className="col-md-6" style={{width: 350, marginRight: 15, marginTop:20, display: 'inline-block'}}>
+                                <Checkbox
+                                    checked={this.state.tempData.mobileOffice}
+                                    caption="Mobil Ofis"
+                                    disabled={true}
+                                    tabIndex={0}
+                                    onChange={(val: any)=> this.handleChange(val, 'mobileOffice')}
                                 />
                             </div>
                             <div className="clearfix"></div>
@@ -225,7 +312,7 @@ class AppComp extends React.Component<Props, State> {
                             <div className="col-md-4">
                                 <Button
                                     type="submit"
-                                    button="black-line"
+                                    button="primary"
                                     upperCase={false}
                                     bold={true}
                                     text="Ekle"
@@ -285,7 +372,9 @@ class AppComp extends React.Component<Props, State> {
     }
 
 
-    public render() {
+    public render(): JSX.Element {
+
+        console.log('This.s', this.state)
 
         return (
             <div className="app-page-shared-container">
@@ -293,7 +382,7 @@ class AppComp extends React.Component<Props, State> {
                 {this.renderNewData()}
                 <div className="content">
                     {this.renderCover()}
-                    <div className="content-area padder-v width-50-percent">
+                    <div className="content-area padder-v ">
                         <div className="col-md-12">
                             {this.renderTables()}
                         </div>

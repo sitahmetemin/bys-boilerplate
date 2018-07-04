@@ -9,6 +9,7 @@ import Scroll from './Scroll';
 import Helmet from './Helmet';
 import Table from './Table';
 import TableHeader from './Table/header';
+import RadioGroup from './RadioGroup';
 
 export {
     Form,
@@ -21,6 +22,6 @@ export {
     Scroll,
     Helmet,
     Table,
-    TableHeader
-
+    TableHeader,
+    RadioGroup
 }

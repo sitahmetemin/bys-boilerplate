@@ -7,13 +7,9 @@ function Municipality() {
     };
 }
 
-
-
 let en = _.assignIn(
     {},
     new Municipality()
 );
 
-
-console.log('Lang', en)
 export default en

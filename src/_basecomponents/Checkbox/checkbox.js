@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import uuidv4 from 'uuid/v4'
+import _ from 'lodash'
 import RenderHtml from "../renderFunction";
 import classNames from "classnames";
+import Container from './checkbox-container'
 
-export default class Checkbox extends Component {
+export default class CheckBox extends Component {
 
     constructor(props) {
         super(props);
@@ -25,7 +27,7 @@ export default class Checkbox extends Component {
     handleCheck = () => {
         this.setState({
             checked: !this.state.checked
-        })
+        },()=> this.props.onChange(this.state.checked))
     };
 
     render() {
@@ -36,7 +38,7 @@ export default class Checkbox extends Component {
             });
 
         return (
-            <label className="app-base-component-checkbox-layer" >
+            <label className="app-base-component-checkbox-layer" onClick={this.handleCheck}>
                 {caption}
                 <input
                     type="checkbox"
@@ -45,7 +47,6 @@ export default class Checkbox extends Component {
                     disabled={disabled}
                     checked={checked}
                     tabIndex={tabIndex}
-                    onChange={this.handleCheck}
                     ref={ref => this.input = ref}
                 />
                 <span className="checkmark"></span>

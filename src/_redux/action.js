@@ -1,12 +1,8 @@
-// import {syncHistoryWithStore} from "react-router-redux";
-// import {browserHistory} from "react-router";
+
 import fetch from "isomorphic-fetch";
 import _ from 'lodash'
 import * as krax from "./krax";
 import {store} from './store';
-import iziToast from 'izitoast/dist/js/iziToast'
-import 'izitoast/dist/css/iziToast.css'
-// const history = syncHistoryWithStore(browserHistory, store);
 
 export const API_REQUEST = 'API_REQUEST';
 export const API_SUCCESS = 'API_SUCCESS';
@@ -39,7 +35,6 @@ export function dataAction(actionParameters) {
     }
 
     let c = false;
-    // confirm = false;
 
     if (method && url) {
         return {
@@ -60,83 +55,6 @@ export function dataAction(actionParameters) {
             initialDispatch(parameters, value, dispatch, source)
         }
     }
-
-
-    /*if (confirm) {
-        c = false;
-        iziToast.show({
-            theme: 'dark',
-            message: confirmMessage,
-            messageColor: 'white',
-            position: 'center',
-            progressBar: false,
-            overlay: true,
-            overlayColor: 'rgba(0,0,0,.3)',
-            buttons: [
-                ['<button id="app-confirm-yes"><b>EVET</b></button>', (instance, toast) => {
-                    instance.hide({transitionOut: 'fadeOut'}, toast, false);
-                    c = true
-                }, true],
-                ['<button id="app-confirm-no">Vazgeç</button>', (instance, toast) => {
-                    instance.hide({transitionOut: 'fadeOut'}, toast, false);
-                }],
-            ],
-            close: false,
-            closeOnEscape: false,
-            timeout: 50000000,
-            overlayClose: true
-        });
-
-        document.getElementById("app-confirm-yes").addEventListener("click", function () {
-
-            if (method && url) {
-                return {
-                    types: [API_REQUEST, API_SUCCESS, API_FAILURE],
-                    promise: fetch(krax.fetchEndpoint(url), krax.getFetchBody(method, params)),
-                    success: (dispatch, response) => {
-                        parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', response, source);
-                        initialDispatch(parameters, response, dispatch, source)
-                    },
-                    error: (dispatch, response) => {
-                        parameters = krax.fetchUpdateParameters(parameters, actionSource, 'error', response, source)
-                        initialDispatch(parameters, response, dispatch, source)
-                    }
-                }
-            } else {
-                return dispatch => {
-                    parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', value, source)
-                    initialDispatch(parameters, value, dispatch, source)
-                }
-            }
-        });
-
-    } else {
-        c= true
-    }
-
-    if (c) {
-        if (method && url) {
-            return {
-                types: [API_REQUEST, API_SUCCESS, API_FAILURE],
-                promise: fetch(krax.fetchEndpoint(url), krax.getFetchBody(method, params)),
-                success: (dispatch, response) => {
-                    parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', response, source);
-                    initialDispatch(parameters, response, dispatch, source)
-                },
-                error: (dispatch, response) => {
-                    parameters = krax.fetchUpdateParameters(parameters, actionSource, 'error', response, source)
-                    initialDispatch(parameters, response, dispatch, source)
-                }
-            }
-        } else {
-            return dispatch => {
-                parameters = krax.fetchUpdateParameters(parameters, actionSource, 'success', value, source)
-                initialDispatch(parameters, value, dispatch, source)
-            }
-        }
-    } else {
-        return dispatch => {}
-    }*/
 
     function initialDispatch(parameters, response, dispatch, source) {
         parameterDispatch(parameters, response, dispatch, source)
@@ -174,7 +92,7 @@ export function dataAction(actionParameters) {
     function parameterRedirect() {
         return new Promise(async function (resolve) {
             if (_.get(parameters, ['actions', source, 'redirect'])) {
-                // history.push(_.get(parameters, ['actions', source, 'redirect']))
+                window.location = _.get(parameters, ['actions', source, 'redirect'])
             }
             resolve();
         });
