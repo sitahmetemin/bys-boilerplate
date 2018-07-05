@@ -1,5 +1,7 @@
 @import url(../../node_modules/bootstrap/dist/css/bootstrap.min.css);
 @import url(../../node_modules/animate.css);
+@import url(../../node_modules/react-grid-layout/css/styles.css);
+@import url(../../node_modules/react-resizable/css/styles.css);
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=latin-ext");
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -526,3 +528,6 @@ table.table-custom {
   -moz-border-radius: 4px;
   border-radius: 4px;
   background: #28c8ce; }
+
+.react-grid-item {
+  border: 1px solid #ccc; }

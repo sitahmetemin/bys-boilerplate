@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.110",
+    "@types/react-grid-layout": "^0.16.4",
     "@types/react-helmet": "^5.0.6",
     "animate.css": "^3.6.1",
     "bootstrap": "^3.3.7",
@@ -29,6 +30,7 @@
     "react-bootstrap": "^0.32.1",
     "react-datepicker": "^1.2.2",
     "react-dom": "^16.4.1",
+    "react-grid-layout": "^0.16.6",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",

@@ -10,6 +10,8 @@ export const API_FAILURE = 'API_FAILURE';
 
 export function dataAction(actionParameters) {
 
+    console.log(actionParameters)
+
     if (!krax.shouldCallAction(actionParameters)) return;
     let parameters = krax.initialParameters(actionParameters);
     let source = parameters.source;
