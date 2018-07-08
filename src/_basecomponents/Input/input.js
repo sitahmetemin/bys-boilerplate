@@ -16,17 +16,18 @@ _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 export default class Input extends Component {
     constructor(props) {
         super(props);
+        let {value, mask, data, errorMessage} = this.props;
+        value = nullToString(value);
 
-        let {value, mask, data} = this.props;
-        let newValue = nullToString(value);
+        // Mask options
         let maskOptions = {};
-
         if (mask && !_.isEmpty(mask)) {
             maskOptions = {
                 mask: String(mask)
             };
         }
 
+        // Autocomplete data
         if (data && _.isArray(data) && data.length) {
             _.keys(data[0]).forEach(c => {
                 search.addIndex(c)
@@ -42,8 +43,9 @@ export default class Input extends Component {
             uuid: uuidv4(),
             selectData: [],
             dataIndex: null,
-            value: newValue,
+            value: value,
             selectOpen: false,
+            errorMessage: errorMessage ? errorMessage : '',
             maskOptions: maskOptions
         }
     }
@@ -53,13 +55,13 @@ export default class Input extends Component {
         const {maskOptions, uuid, validate, errorMessage, value} = this.state;
         const {formContext} = this.props;
 
-        let val = value;
+        let val = nullToString(value);
 
         this.setState({
             manualErrorMessage: errorMessage,
             value: val
         }, () => {
-            formContext.validate(uuid, val, validate, errorMessage);
+            validate && formContext.validate(uuid, val, validate, errorMessage);
         });
 
         if (maskOptions && !_.isEmpty(maskOptions)) {
@@ -67,25 +69,29 @@ export default class Input extends Component {
             new IMask(element, maskOptions);
         }
 
+        document.addEventListener("mousedown", this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("mousedown", this.handleClickOutside);
     }
 
     componentWillReceiveProps(nextProps) {
-        const {value, errorMessage, formContext, remote} = nextProps;
+        const {value, errorMessage, formContext} = nextProps;
         const {uuid, maskOptions, validate} = this.state;
 
         if (value !== this.props.value) {
-            let newValue = nullToString(value)
+            let newValue = nullToString(value);
+
             if (maskOptions && !_.isEmpty(maskOptions) && newValue) {
                 let masked = IMask.createMask(maskOptions);
                 newValue = masked.resolve(newValue)
             }
 
             this.setState({
-                ...nextProps,
                 value: newValue
             },()=> {
-                remote && this.remoteSearch(newValue, remote);
-                formContext.validate(uuid, newValue, validate, errorMessage);
+                validate && formContext.validate(uuid, newValue, validate, errorMessage);
             });
         }
 
@@ -95,7 +101,7 @@ export default class Input extends Component {
                 manualErrorMessage: errorMessage,
                 value: nullToString(value)
             },()=> {
-                formContext.validate(uuid, nullToString(value), validate, errorMessage);
+                validate && formContext.validate(uuid, nullToString(value), validate, errorMessage);
             })
         }
 
@@ -121,10 +127,10 @@ export default class Input extends Component {
             .then(response => response.json())
             .then(response => {
                 this.setState({
-                    selectData: response,
-                    dataIndex: !_.isEmpty(response) ? 0 : null
+                    selectData: newValue ? response : [],
+                    dataIndex: !_.isEmpty(response) ? 0 : null,
+                    selectOpen: response.length ? true : false
                 }, () => {
-                    response.length && this.openSelect();
                     _.keys(response[0]).forEach(c => {
                         search.addIndex(c)
                     });
@@ -133,28 +139,33 @@ export default class Input extends Component {
             })
     }
 
+    dataSearch(val){
+        let filterData = [];
+        filterData = search.search(val);
+
+        this.setState({
+            selectData: val ? filterData : [],
+            dataIndex: !_.isEmpty(filterData) ? 0 : null,
+            selectOpen: filterData.length ? true : false
+        });
+    }
+
     focus = () => {
         this.input.focus()
     };
 
     handleChange = (e) => {
         const {onChange, formContext} = this.props;
-        const {data, uuid, validate, manualErrorMessage} = this.state;
-        let val = e.target.value,
-            filterData = [];
+        const {data, uuid, validate, manualErrorMessage, remote} = this.state;
+        let val = e.target.value;
 
-        if (data) {
-            filterData = search.search(val);
-        }
+        remote && this.remoteSearch(val, remote);
+        data && this.dataSearch(val);
 
         this.setState({
-            ...this.state,
             value: val,
-            selectData: filterData,
-            dataIndex: !_.isEmpty(filterData) ? 0 : null,
         }, () => {
-            filterData.length && this.openSelect();
-            formContext.validate(uuid, _.trim(val), validate, manualErrorMessage);
+            validate && formContext.validate(uuid, _.trim(val), validate, manualErrorMessage);
             onChange && this.props.onChange(this.state.value)
         })
     };
@@ -165,10 +176,9 @@ export default class Input extends Component {
         let val = _.trim(e.target.value);
 
         this.setState({
-            ...this.state,
             value: val,
         }, () => {
-            formContext.validate(uuid, val, validate, manualErrorMessage);
+            validate && formContext.validate(uuid, val, validate, manualErrorMessage);
             onBlur && this.props.onBlur(val)
         })
     };
@@ -207,8 +217,8 @@ export default class Input extends Component {
     };
 
     searchSelectItem(val) {
-        const {selectItem, formContext} = this.props;
-        let {dataIndex, selectData, uuid, validate, manualErrorMessage} = this.state;
+        const {formContext, onChange} = this.props;
+        let {uuid, validate, manualErrorMessage} = this.state;
 
         if (val && _.isObject(val)) {
             const showStr = inputSetString(this.state, val);
@@ -218,9 +228,8 @@ export default class Input extends Component {
                 selectData: [],
                 dataIndex: null
             }, () => {
-                this.openSelect();
-                formContext.validate(uuid, showStr, validate, manualErrorMessage);
-                selectItem && this.props.selectItem(val ? val : selectData[dataIndex])
+                validate && formContext.validate(uuid, showStr, validate, manualErrorMessage);
+                onChange && this.props.onChange(_.trim(showStr))
             })
         }
     }
@@ -238,7 +247,7 @@ export default class Input extends Component {
                             }
 
                             return (
-                                <li className={`app-select-list-items only-li no-icon ${activeHoverClass}`} key={i} onClick={() => this.searchSelectItem(item)} >
+                                <li className={`only-li no-icon ${activeHoverClass}`} key={i} onClick={() => this.searchSelectItem(item)} >
                                     {inputSetString(this.state, item)}
                                 </li>
                             )
@@ -249,28 +258,6 @@ export default class Input extends Component {
         }
         return null
     }
-
-    openSelect = () => {
-        const {selectOpen} = this.state;
-        if (!selectOpen) {
-            document.addEventListener('click', this.handleOutsideClick, false);
-        } else {
-            document.removeEventListener('click', this.handleOutsideClick, false);
-        }
-
-        this.setState({
-            selectOpen: !selectOpen,
-        })
-    };
-
-    handleOutsideClick = (e) => {
-        let x = true;
-        if (!_.includes(e.target.className, 'app-select-list-items')) {
-            x = false;
-        }
-
-        !x && this.openSelect();
-    };
 
     helperIconClick() {
         let {helperIconClick} = this.state;
@@ -290,6 +277,22 @@ export default class Input extends Component {
         }
         return null
     }
+
+    setWrapperRef = (node) => {
+        this.wrapperRef = node;
+    };
+
+    handleClickOutside = (event) => {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.setState({
+                selectOpen: false,
+            })
+        } else if (this.wrapperRef && this.wrapperRef.contains(event.target) && this.state.selectData && this.state.selectData.length){
+            this.setState({
+                selectOpen: true,
+            })
+        }
+    };
 
     render() {
 
@@ -312,7 +315,7 @@ export default class Input extends Component {
             });
 
         return (
-            <div className={`${containerClass} ${customClass}`} style={this.props.style} data-title={RenderHtml.renderTitleAfterElement(this.state)}>
+            <div className={`${containerClass} ${customClass}`} style={this.props.style} data-title={RenderHtml.renderTitleAfterElement(this.state)} ref={this.setWrapperRef}>
                 <div className="app-form-edit-container">
                     <div className={appClass}>
                         {RenderHtml.renderAddon(this.state, 'left')}
@@ -327,19 +330,11 @@ export default class Input extends Component {
                                 readOnly={readOnly}
                                 value={value}
                                 maxLength={maxSize}
-                                onChange={(val) => {
-                                    this.handleChange(val)
-                                }}
+                                onChange={(val) => {this.handleChange(val)}}
                                 onClick={this.focus}
-                                onBlur={(val) => {
-                                    this.handleBlur(val)
-                                }}
-                                onKeyPress={(e) => {
-                                    this.handlePress(e)
-                                }}
-                                onKeyDown={(e) => {
-                                    this.handlePress(e)
-                                }}
+                                onBlur={(val) => {this.handleBlur(val)}}
+                                onKeyPress={(e) => {this.handlePress(e)}}
+                                onKeyDown={(e) => {this.handlePress(e)}}
                                 formNoValidate="formnovalidate"
                                 required={false}
                                 autoComplete={!autoComplete && type === 'text' ? 'off' : 'new-password'}

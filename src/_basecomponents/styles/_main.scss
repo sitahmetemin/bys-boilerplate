@@ -744,7 +744,7 @@ $red: #F71C6C;
             }
 
             &.dd-warning {
-                background: $red;
+                background: #f67280;
                 color: white;
                 cursor: default;
 
@@ -826,20 +826,80 @@ $red: #F71C6C;
 }
 
 .app-base-component-checkbox-layer {
-    display: inline-block;
-    position: relative;
-    padding-left: 30px;
-    padding-right: 15px;
-    cursor: pointer;
-    font-size: 13px;
-    font-family: 'Roboto', sans-serif;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    height: 20px;
-    padding-top: 3px;
-    font-weight: 500;
+
+    & > label {
+        display: inline-block;
+        position: relative;
+        padding-left: 30px;
+        padding-right: 15px;
+        cursor: pointer;
+        font-size: 13px;
+        font-family: 'Roboto', sans-serif;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        height: 20px;
+        padding-top: 3px;
+        font-weight: 500;
+        width: 100%;
+    }
+
+    &.error > .app-form-error-container {
+        font-size: 10px;
+        font-weight: normal;
+        position: absolute;
+        background: transparent;
+        color: #F2405D;
+        -webkit-transition: 0.3s ease all;
+        -o-transition: 0.3s ease all;
+        transition: 0.3s ease all;
+        padding: 5px 30px;
+    }
+
+    &:hover {
+        input[type="checkbox"] {
+            & ~ .checkmark {
+                background-color: #2196F3;
+                border:none;
+            }
+        }
+    }
+
+    &.disabled {
+        & > label {
+            cursor: not-allowed;
+            pointer-events: none;
+            color: lighten(#000, 50%)
+
+        }
+
+        &:hover {
+            input[type="checkbox"] {
+                & ~ .checkmark {
+                    border: 1px solid #B4BBD0;
+                }
+            }
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+
+            & ~ .checkmark {
+                background-color: transparent;
+                //border: none;
+            }
+
+            &:checked {
+                & ~ .checkmark {
+                    background-color: lighten(#2196F3, 20%);
+                    border: none;
+                }
+            }
+        }
+    }
 
     input[type="checkbox"] {
         position: absolute;
@@ -855,6 +915,7 @@ $red: #F71C6C;
                 }
             }
         }
+
     }
 
     .checkmark {
@@ -870,9 +931,6 @@ $red: #F71C6C;
             content: "";
             position: absolute;
             display: none;
-        }
-
-        &:after {
             left: 10px;
             top: 2px;
             width: 7px;
@@ -883,18 +941,188 @@ $red: #F71C6C;
             -ms-transform: rotate(45deg);
             transform: rotate(45deg);
         }
+
+        &.error-checkmark {
+            border-color: $red
+        }
+    }
+
+
+}
+
+.app-base-component-radio-layer {
+    margin-bottom: 10px;
+
+    & > label {
+        display: inline-block;
+        position: relative;
+        padding-left: 30px;
+        padding-right: 15px;
+        cursor: pointer;
+        font-size: 13px;
+        font-family: 'Roboto', sans-serif;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        height: 20px;
+        padding-top: 3px;
+        font-weight: 500;
+        width: 100%;
+    }
+
+    &.error > .app-form-error-container {
+        font-size: 10px;
+        font-weight: normal;
+        position: absolute;
+        background: transparent;
+        color: #F2405D;
+        -webkit-transition: 0.3s ease all;
+        -o-transition: 0.3s ease all;
+        transition: 0.3s ease all;
+        padding: 5px 30px;
     }
 
     &:hover {
-        input[type="checkbox"] {
+        input[type="radio"] {
             & ~ .checkmark {
                 background-color: #2196F3;
                 border:none;
             }
         }
     }
+
+    &.disabled {
+        & > label {
+            cursor: not-allowed;
+            pointer-events: none;
+            color: lighten(#000, 50%)
+
+        }
+
+        &:hover {
+            input[type="radio"] {
+                & ~ .checkmark {
+                    border: 1px solid #B4BBD0;
+                }
+            }
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+
+            & ~ .checkmark {
+                background-color: transparent;
+            }
+
+            &:checked {
+                & ~ .checkmark {
+                    background-color: lighten(#2196F3, 20%);
+                    border: none;
+                }
+            }
+        }
+    }
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked {
+            & ~ .checkmark {
+                background-color: #2196F3;
+                border: none;
+                &:after {
+                    display: block;
+                }
+            }
+        }
+
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border: 1px solid #B4BBD0;
+        @include border-radius(100%);
+
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 5px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            @include border-radius(100%);
+
+        }
+
+        &.error-checkmark {
+            border-color: $red
+        }
+    }
+
+
 }
 
+.app-check-container-class {
+    width: 100%;
+    position: relative;
+    //display: flex;
+    //align-items: flex-start;
+    //justify-content: flex-start;
+    padding-top: 40px;
+
+    & > .app-check-title {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 40px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 11px;
+        line-height: 11px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        color: #1D2229;
+    }
+
+    & > .app-check-error-container {
+        position: absolute;
+        left: 0;
+        top: 30px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        font-weight: normal;
+        background: transparent;
+        color: #F2405D;
+        -webkit-transition: 0.3s ease all;
+        -o-transition: 0.3s ease all;
+        transition: 0.3s ease all;
+        margin-top: -20px;
+
+        & + .app-check-title {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+
+
+}
 
 .app-base-component-button {
 

@@ -238,7 +238,7 @@ class Functions extends React.Component<Props, State> {
     }
 
     searchSelected(val: any) {
-        console.log('---Ser', val)
+        // console.log('---Ser', val)
     }
 
     public render() {

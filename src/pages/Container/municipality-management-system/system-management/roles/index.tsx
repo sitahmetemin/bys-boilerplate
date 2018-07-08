@@ -112,7 +112,7 @@ class AppComp extends React.Component<Props, State> {
                     data={roles}
                     clickRow={true}
                     iconPosition="right"
-                    // search={true}
+                    search={true}
                     iconList={[
                         {
                             icon: 'edit',
@@ -373,9 +373,6 @@ class AppComp extends React.Component<Props, State> {
 
 
     public render(): JSX.Element {
-
-        console.log('This.s', this.state)
-
         return (
             <div className="app-page-shared-container">
                 {this.renderSideBar()}

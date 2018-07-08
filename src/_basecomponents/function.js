@@ -1,6 +1,7 @@
 import validator from "validator";
 import numeral from 'numeral';
 import _ from 'lodash'
+import t from './language';
 
 export function arrowUpDown(key, dataIndex, data) {
     let x = null;
@@ -26,7 +27,8 @@ export function arrowUpDown(key, dataIndex, data) {
     return x
 }
 
-export function validateFunc(validateArr, val, msg) {
+export function validateFunc(validateArr, val, msg, lang) {
+
     let errors = [];
     if (_.isBoolean(validateArr)) {
         validateArr = ['required']
@@ -37,7 +39,7 @@ export function validateFunc(validateArr, val, msg) {
             switch (item) {
                 case 'required':
                     if (validator.isEmpty(val)) {
-                        errors.push('Bu alan boş bırakılamaz')
+                        errors.push(t[lang].required) // Bu alan gereklidir
                     }
                     break;
                 case 'email':

@@ -46,7 +46,7 @@ interface State {
     title: string,
     sidebar: boolean,
     fastMenu: FastMenu[],
-    selectData: Data[]
+    menuData: Data[]
 }
 
 class Municipality extends React.Component<Props, State> {
@@ -63,7 +63,7 @@ class Municipality extends React.Component<Props, State> {
             title: 'Test',
             sidebar: false,
             fastMenu: fastMenu,
-            selectData: [
+            menuData: [
                 {
                     "vsm1progsId": 7,
                     "type": "F",
@@ -257,7 +257,7 @@ class Municipality extends React.Component<Props, State> {
                             validate={true}
                             errorMessage={this.state.errorMessage}
                             autoComplete={'off'}
-                            data={this.state.selectData}
+                            data={this.state.menuData}
                             dataShowFields={'name'}
                             dataInputSetFields={'name'}
                             selectItem={(val: any) => this.searchSelected(val)}

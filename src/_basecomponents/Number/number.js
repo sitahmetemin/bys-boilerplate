@@ -12,7 +12,8 @@ export default class Input extends Component {
             ...this.props,
             uuid: uuidv4(),
             value: nullToString(this.props.value),
-            type:'number'
+            type:'number',
+            errorMessage: this.props.errorMessage ? this.props.errorMessage : ''
         }
     }
 
@@ -33,7 +34,6 @@ export default class Input extends Component {
 
         if (value !== this.props.value) {
             this.setState({
-                ...nextProps,
                 value: nullToString(value)
             },()=> {
                 formContext.validate(uuid, nullToString(value), validate, errorMessage);

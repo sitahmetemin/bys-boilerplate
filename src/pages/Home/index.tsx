@@ -6,7 +6,7 @@ class Home extends React.Component<{},{}> {
 
 
     change(layout:any) {
-        console.log('a',layout)
+        // console.log('a',layout)
     }
 
     stop(layout: any, oldItem: any, newItem: any,placeholder: any, e: any, element: any) {
@@ -15,7 +15,7 @@ class Home extends React.Component<{},{}> {
         console.log('newItem',newItem)
         console.log('placeholder',placeholder)
         console.log('e',e)*/
-        console.log('eleme',element)
+        // console.log('eleme',element)
     }
 
     render() {

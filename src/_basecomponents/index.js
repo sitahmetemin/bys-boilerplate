@@ -2,6 +2,7 @@ import Input from './Input';
 import NumberInput from './Number';
 import Select from './Select';
 import Checkbox from './Checkbox';
+import CheckContainer from './CheckContainer';
 import Button from './Button';
 import Form from './Form';
 import Tooltip from './Tooltip';
@@ -18,6 +19,7 @@ export {
     Select,
     Button,
     Checkbox,
+    CheckContainer,
     Tooltip,
     Scroll,
     Helmet,

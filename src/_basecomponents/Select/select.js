@@ -8,16 +8,16 @@ import {arrowUpDown, inputSetString} from '../function';
 import RenderHtml from '../renderFunction';
 import ScrollArea from 'react-scrollbar';
 import * as JsSearch from 'js-search';
+import t from '../language';
 
 let search = new JsSearch.Search('id');
 _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
-
 
 export default class Select extends Component {
     constructor(props) {
         super(props);
 
-        const {data} = this.props;
+        const {data, remote, multiSelect, selected,formContext, errorMessage} = this.props;
 
         if (data && _.isArray(data) && data.length) {
             _.keys(data[0]).forEach(c => {
@@ -29,46 +29,71 @@ export default class Select extends Component {
             })
         }
 
+        let multiData_ = [];
+        if (selected && multiSelect) {
+            multiData_ = selected
+        } else if( selected && !multiSelect) {
+            multiData_ = [selected]
+        }
+
         this.state = {
             ...this.props,
             uuid: uuidv4(),
-            selectData: [],
+            selectData: !remote ? data : [],
             dataIndex: null,
             selectOpen: false,
-            selected: this.props.selected,
+            selected: multiData_,
             value: '',
-            multiData: this.props.selected ? [this.props.selected] : [],
-            sizeErrorMessage: ''
+            multiData: multiData_,
+            sizeErrorMessage: '',
+            errorMessage: errorMessage ? errorMessage : '',
+            lang: formContext.lang ? formContext.lang : 'tr'
         }
     }
 
     componentDidMount() {
         const {uuid, validate} = this.state;
-        const {formContext, selected} = this.props;
-        const str = inputSetString(this.state, selected);
+        const {formContext, selected, multiSelect} = this.props;
+        let str ='';
+
+        if (selected && !multiSelect) {
+            str = inputSetString(this.state, selected)
+        }
+
         this.setState({
             manualErrorMessage: this.getErrorMessage(),
-            value: str
+            value: str,
         }, () => {
-            formContext.validate(uuid, str, validate, this.state.manualErrorMessage);
+            if (multiSelect && selected) {
+                str = 'true';
+            }
+            validate && formContext.validate(uuid, str, validate, this.state.manualErrorMessage);
         });
+
+        document.addEventListener("mousedown", this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("mousedown", this.handleClickOutside);
     }
 
     getErrorMessage() {
         const {errorMessage, multiData} = this.state;
         const {selectMaxSize, selectMinSize, multiSelect} = this.props;
         let errMsg = errorMessage;
-        if (multiSelect && multiData.length >= selectMaxSize) {
+        if (multiSelect && multiData.length > selectMaxSize) {
             errMsg = `En fazla ${selectMaxSize} seçim yapılmalıdır`
         } else if(multiSelect && multiData.length < selectMinSize) {
             errMsg = `En az ${selectMinSize} seçim yapılmalıdır`
+        } else {
+            errMsg = ''
         }
 
         return errMsg
     }
 
     componentWillReceiveProps(nextProps) {
-        const {errorMessage, selected, validate, formContext} = nextProps,
+        const {errorMessage, selected, validate, formContext, remote, data, multiSelect} = nextProps,
             {uuid} = this.state;
 
         if (nextProps.errorMessage !== this.props.errorMessage) {
@@ -80,24 +105,35 @@ export default class Select extends Component {
 
         if (nextProps.data !== this.props.data) {
             this.setState({
-                ...nextProps,
                 value: '',
                 manualErrorMessage: '',
-                selected: null
-            },() => {
-                this.openSelect()
+                selected: [],
+                multiData: [],
+                selectData: !remote ? data : []
             })
         }
 
         if (selected !== this.props.selected) {
-            const str = inputSetString(this.state, selected);
+            let str ='',
+            mData = [];
+
+            if (selected && !multiSelect) {
+                str = inputSetString(this.state, selected);
+                mData = [selected]
+            } else if(selected && multiSelect) {
+                mData = selected
+            }
+
             this.setState({
                 ...nextProps,
                 selected: selected,
-                multiData: selected ? [selected] : [],
+                multiData: mData,
                 value: str
             },()=> {
-                formContext.validate(uuid, str, validate, errorMessage);
+                if (multiSelect && selected) {
+                    str = 'true';
+                }
+                validate && formContext.validate(uuid, str, validate, errorMessage);
             })
         }
 
@@ -114,32 +150,13 @@ export default class Select extends Component {
 
     focus = () => {
         this.input.focus();
-        this.openSelect()
-    };
 
-    handleChange = (e) => {
-        const {onChange, formContext, multiSelect} = this.props;
-        const {data, uuid, validate, manualErrorMessage, remote, multiData, selectOpen} = this.state;
-
-        !selectOpen && this.openSelect();
-        let val = e.target.value;
-        const filterData = !_.isEmpty(val) ? search.search(val) : data;
-        remote && this.remoteSearch(val, remote);
-
-        this.setState({
-            ...this.state,
-            value: val,
-            selectData: filterData,
-            dataIndex: !_.isEmpty(filterData) ? 0 : null
-        }, () => {
-
-            if(multiSelect && multiData.length > 0 && !_.trim(val)) {
-                val = true
-            }
-
-            formContext.validate(uuid, _.trim(val), validate, manualErrorMessage);
-            onChange && this.props.onChange(this.state.value)
-        })
+        if (this.state.remote && this.props.multiSelect) {
+            this.setState({
+                selectOpen: true,
+                selectData: this.state.selected
+            })
+        }
     };
 
     remoteSearch(newValue, remote) {
@@ -153,8 +170,9 @@ export default class Select extends Component {
             .then(response => response.json())
             .then(response => {
                 this.setState({
-                    selectData: response,
-                    dataIndex: !_.isEmpty(response) ? 0 : null
+                    selectData: newValue ? response : this.state.selected,
+                    dataIndex: !_.isEmpty(response) ? 0 : null,
+                    selectOpen: response.length ? true : false
                 }, () => {
                     _.keys(response[0]).forEach(c => {
                         search.addIndex(c)
@@ -164,18 +182,48 @@ export default class Select extends Component {
             })
     }
 
-    handlePress = (e) => {
-        const {multiSelect} = this.props;
-        let {dataIndex, selectData, selectOpen} = this.state;
-
-        !multiSelect && !selectOpen && this.openSelect();
+    dataSearch(val){
+        let filterData = [];
+        filterData = search.search(val);
 
         this.setState({
-            selected: null
+            selectData: val ? filterData : this.props.data,
+            dataIndex: !_.isEmpty(filterData) ? 0 : null,
+            selectOpen: filterData.length ? true : false
         });
+    }
+
+    handleChange = (e) => {
+        const {formContext, multiSelect} = this.props;
+        const {data, uuid, validate, manualErrorMessage, remote, multiData, selectOpen} = this.state;
+        let val = e.target.value;
+
+        remote && this.remoteSearch(val, remote);
+        data && this.dataSearch(val);
+
+        this.setState({
+            value: val,
+        }, () => {
+
+            if(multiSelect && multiData.length > 0 && !_.trim(val)) {
+                val = true
+            }
+
+            validate && formContext.validate(uuid, _.trim(val), validate, manualErrorMessage);
+        })
+    };
+
+    handlePress = (e) => {
+        const {remote} = this.props;
+        let {dataIndex, selectData} = this.state;
 
         if (e.key === 'Enter') {
+
             if (dataIndex !== null) {
+                this.setState({
+                    selectData: !remote ? this.props.data : selectData
+                });
+
                 this.searchSelectItem(selectData[dataIndex]);
                 e.preventDefault();
             }
@@ -183,7 +231,6 @@ export default class Select extends Component {
 
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             this.setState({
-                ...this.state,
                 dataIndex: arrowUpDown(e.key, dataIndex, selectData)
             },()=> {
                 if (this.scroll) {
@@ -202,9 +249,8 @@ export default class Select extends Component {
     searchSelectItem(val) {
 
         if (val && _.isObject(val)) {
-            const {selectItem, formContext, multiSelect, selectMaxSize, dataShowFields} = this.props;
+            const {onChange, formContext, multiSelect, selectMaxSize, dataShowFields} = this.props;
             let showStr = inputSetString(this.state, val);
-
             let {uuid, validate, dataIndex, multiData} = this.state;
             let selectVal = multiSelect ? [] : {};
 
@@ -212,69 +258,74 @@ export default class Select extends Component {
             let sizeError = '';
 
             if (multiSelect) {
-
-                if (_.filter(multipleData, k => val === k).length > 0) {
-                    _.remove(multipleData, item => item === val);
+                if (_.filter(multipleData, k => _.isEqual(val, k)).length > 0) {
+                    _.remove(multipleData, item => _.isEqual(val, item));
                 } else {
-                    if (multiData.length >= selectMaxSize) {
+                    if (multipleData.length >= selectMaxSize) {
                         sizeError = `En fazla ${selectMaxSize} seçim yapılabilir`
                     } else {
                         multipleData.push(val)
                     }
                 }
 
+                selectVal = multipleData;
+
+                if(!multiData.length) {
+                    showStr = '';
+                    selectVal = []
+                }
+
             } else {
                 selectVal = val;
-                // showStr = !_.isEmpty(val) ? val[dataShowFields] : '';
-
-                // console.log('S',showStr)
+                showStr = !_.isEmpty(val) ? val[dataShowFields] : '';
             }
 
             this.setState({
                 value:  showStr,
-                selected: multipleData.length ? val : null,
+                selected: !_.isEmpty(selectVal) ? selectVal : null,
                 multiData: multipleData,
                 dataIndex: multiSelect ? dataIndex : null,
                 errorMessage: sizeError,
-                manualErrorMessage: '',
-                sizeErrorMessage: sizeError
+                manualErrorMessage: this.getErrorMessage(),
+                sizeErrorMessage: sizeError,
+                selectOpen: multiSelect ? true : false
             }, () => {
 
                 if (multiSelect) {
                     showStr = multiData.length ? showStr : ''
                 }
 
-                // !multiSelect && this.openSelect();
-                formContext.validate(uuid, showStr, validate, this.state.manualErrorMessage);
-                !multiSelect && selectItem && this.props.selectItem(selectVal)
+                validate && formContext.validate(uuid, showStr, validate, this.state.manualErrorMessage);
+                onChange && this.props.onChange(selectVal)
             })
         }
     }
 
     removeSelect() {
+        const {formContext} = this.props;
+        let {uuid, validate, errorMessage} = this.state;
+
         this.setState({
             value: '',
             selected: null,
             multiData: [],
+            sizeErrorMessage: '',
             errorMessage: ''
         },()=> {
-            const {formContext} = this.props;
-            let {uuid, validate, errorMessage} = this.state;
-            this.openSelect();
-            formContext.validate(uuid, '', validate, errorMessage);
+            validate && formContext.validate(uuid, '', validate, errorMessage);
         })
     }
 
     renderSearch() {
         const {multiSelect} = this.props;
-        let {selectData, selectOpen, selected, multiData, sizeErrorMessage} = this.state;
+        let {selectData, selectOpen, selected, multiData, sizeErrorMessage, lang} = this.state;
         if (selectOpen && selectData && selectData.length) {
 
             return <ul className="dropdown-menu dropdown-select block" >
                 {selected && <li className={'dd-search'} onClick={()=> this.removeSelect()}>
                     <i className={'fal fa-trash-alt'}>
                     </i>
-                    Seçimi Temizle
+                    {t[lang].removeSelection}
                 </li>}
                 {sizeErrorMessage && <li className={'dd-search dd-warning'}>
                     <i className={'fal fa-exclamation-square'}>
@@ -284,10 +335,25 @@ export default class Select extends Component {
                 <ScrollArea smoothScrolling={true} speed={0.8} className="scroll-area-conrainer" contentClassName="" horizontal={false} ref={ref => this.scroll = ref}>
                     {
                         selectData && selectData.map((item, i) => {
+
                             let activeClass = '';
                             let activeHoverClass = '';
-                            if (multiSelect && multiData && multiData.length && _.filter(multiData, k => item === k).length > 0) {
-                                activeClass = 'active'
+                            if (multiSelect && multiData && multiData.length) {
+                                _.filter(multiData, k => {
+                                    if (_.isEqual(k, item)) {
+                                        activeClass = 'active'
+
+                                    }
+                                })
+                            }
+
+                            if (!multiSelect && selected && selected.length) {
+                                _.filter(selected, k => {
+                                    if (_.isEqual(k, item)) {
+                                        activeClass = 'active'
+
+                                    }
+                                })
                             }
 
                             if (!multiSelect && !_.isEmpty(selected) && selected === item) {
@@ -314,58 +380,26 @@ export default class Select extends Component {
         return null
     }
 
-    openSelect = () => {
-        const {multiSelect, selectItem, selectMinSize, selectMaxSize, formContext} = this.props;
-        const {selectOpen, data, multiData, uuid, validate} = this.state;
-        if (!selectOpen) {
-            document.addEventListener('click', this.handleOutsideClick, false);
-        } else {
-            document.removeEventListener('click', this.handleOutsideClick, false);
-        }
-
-        this.setState({
-            selectOpen: !selectOpen,
-            selectData: data
-        },()=> {
-            if (!this.state.selectOpen) {
-                if (multiData.length < selectMinSize) {
-                    let sizeError = `En az ${selectMinSize} seçim yapılmalıdır`;
-
-                    this.setState({
-                        errorMessage: sizeError,
-                        sizeErrorMessage: sizeError
-                    }, () => {
-                        formContext.validate(uuid, '', validate, this.state.errorMessage);
-                    })
-
-                } else if(multiData.length >= selectMinSize || multiData.length <= selectMaxSize) {
-                    this.setState({
-                        errorMessage: '',
-                        manualErrorMessage: '',
-                    }, ()=> {
-                        multiSelect && selectItem && this.props.selectItem(multiData)
-                    })
-                }
-            }
-        })
+    setWrapperRef = (node) => {
+        this.wrapperRef = node;
     };
 
-    handleOutsideClick = (e) => {
-        let x = true;
-        if (!_.includes(e.target.className, 'app-select-list-items')) {
-            x = false;
+    handleClickOutside = (event) => {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.setState({
+                selectOpen: false,
+                // errorMessage: this.getErrorMessage()
+            })
+        } else if (this.wrapperRef && this.wrapperRef.contains(event.target) && this.state.data){
+            this.setState({
+                selectOpen: true,
+            })
         }
-
-        !x && this.openSelect();
     };
 
     setValue() {
-        const {value, selected} = this.state;
-        if (selected && !_.isEmpty(selected)) {
-            return inputSetString(this.state, selected)
-        } else {
-            return value ? value : ''
-        }
+        const {value} = this.state;
+        return value
     }
 
     render() {
@@ -391,7 +425,7 @@ export default class Select extends Component {
             });
 
         return (
-            <div className={`${containerClass} ${customClass}`} style={this.props.style} data-title={RenderHtml.renderTitleAfterElement(this.state)}>
+            <div className={`${containerClass} ${customClass}`} style={this.props.style} data-title={RenderHtml.renderTitleAfterElement(this.state)} ref={this.setWrapperRef} >
                 <div className="app-form-edit-container">
                     <div className={appClass}>
                         {RenderHtml.renderAddon(this.state, 'left')}

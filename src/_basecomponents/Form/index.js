@@ -12,7 +12,8 @@ class Form extends Component {
         this.state = {
             validationErrors: [],
             click: false,
-            messages: []
+            messages: [],
+            lang: this.props.lang || 'tr'
         }
     }
 
@@ -22,27 +23,30 @@ class Form extends Component {
         if (this.state.messages.length) {
             return;
         }
+
         this.props.onSubmit();
     }
 
     validate(id, val, validateSpecs, errMsg) {
 
-        let err = validateFunc(validateSpecs, val, errMsg),
-            {messages} = this.state,
-            msgs = messages;
+        if (validateSpecs && id) {
+            let err = validateFunc(validateSpecs, val, errMsg, this.state.lang),
+                {messages} = this.state,
+                msgs = messages;
 
-        _.remove(msgs, item => item.id === id)
+            _.remove(msgs, item => item.id === id)
 
-        if (err.length > 0) {
-            msgs.push({
-                id: id,
-                messages: err[0]
-            });
+            if (err.length > 0) {
+                msgs.push({
+                    id: id,
+                    messages: err[0]
+                });
+            }
+
+            this.setState({
+                messages: msgs
+            })
         }
-
-        this.setState({
-            messages: msgs
-        })
     }
 
     formChange() {
@@ -52,11 +56,11 @@ class Form extends Component {
     }
 
     render() {
-
         const formContextInstance = {
             click: this.state.click,
             validate: (id, val, specs, errMsg) => this.validate(id, val, specs, errMsg),
-            messages: this.state.messages
+            messages: this.state.messages,
+            lang: this.state.lang
         };
 
         return (

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import _ from 'lodash'
+import t from './language';
 
 export default class RenderHtml extends Component {
 
@@ -60,7 +61,7 @@ export default class RenderHtml extends Component {
                     showStr = showStr + ', ' + selectStr
                 });
 
-                caption = multiData.length +' öğe - '+_.trim(showStr, ',');
+                caption = multiData.length + ' ' + t[state.lang].item + ' - '+_.trim(showStr, ',');
                 labelClass = 'active'
 
             }

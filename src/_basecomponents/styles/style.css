@@ -614,7 +614,7 @@ img {
       text-decoration: underline;
       color: black; }
     .dropdown-menu li.dd-search.dd-warning {
-      background: #F71C6C;
+      background: #f67280;
       color: white;
       cursor: default; }
       .dropdown-menu li.dd-search.dd-warning:hover {
@@ -681,7 +681,7 @@ img {
 .scroll-container {
   height: auto; }
 
-.app-base-component-checkbox-layer {
+.app-base-component-checkbox-layer > label {
   display: inline-block;
   position: relative;
   padding-left: 30px;
@@ -695,43 +695,196 @@ img {
   user-select: none;
   height: 20px;
   padding-top: 3px;
-  font-weight: 500; }
-  .app-base-component-checkbox-layer input[type="checkbox"] {
+  font-weight: 500;
+  width: 100%; }
+
+.app-base-component-checkbox-layer.error > .app-form-error-container {
+  font-size: 10px;
+  font-weight: normal;
+  position: absolute;
+  background: transparent;
+  color: #F2405D;
+  -webkit-transition: 0.3s ease all;
+  -o-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+  padding: 5px 30px; }
+
+.app-base-component-checkbox-layer:hover input[type="checkbox"] ~ .checkmark {
+  background-color: #2196F3;
+  border: none; }
+
+.app-base-component-checkbox-layer.disabled > label {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: gray; }
+
+.app-base-component-checkbox-layer.disabled:hover input[type="checkbox"] ~ .checkmark {
+  border: 1px solid #B4BBD0; }
+
+.app-base-component-checkbox-layer.disabled input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; }
+  .app-base-component-checkbox-layer.disabled input[type="checkbox"] ~ .checkmark {
+    background-color: transparent; }
+  .app-base-component-checkbox-layer.disabled input[type="checkbox"]:checked ~ .checkmark {
+    background-color: #82c4f8;
+    border: none; }
+
+.app-base-component-checkbox-layer input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; }
+  .app-base-component-checkbox-layer input[type="checkbox"]:checked ~ .checkmark {
+    background-color: #2196F3;
+    border: none; }
+    .app-base-component-checkbox-layer input[type="checkbox"]:checked ~ .checkmark:after {
+      display: block; }
+
+.app-base-component-checkbox-layer .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #B4BBD0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
+  .app-base-component-checkbox-layer .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 10px;
+    top: 2px;
+    width: 7px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  .app-base-component-checkbox-layer .checkmark.error-checkmark {
+    border-color: #F71C6C; }
+
+.app-base-component-radio-layer {
+  margin-bottom: 10px; }
+  .app-base-component-radio-layer > label {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    padding-right: 15px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: 20px;
+    padding-top: 3px;
+    font-weight: 500;
+    width: 100%; }
+  .app-base-component-radio-layer.error > .app-form-error-container {
+    font-size: 10px;
+    font-weight: normal;
+    position: absolute;
+    background: transparent;
+    color: #F2405D;
+    -webkit-transition: 0.3s ease all;
+    -o-transition: 0.3s ease all;
+    transition: 0.3s ease all;
+    padding: 5px 30px; }
+  .app-base-component-radio-layer:hover input[type="radio"] ~ .checkmark {
+    background-color: #2196F3;
+    border: none; }
+  .app-base-component-radio-layer.disabled > label {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: gray; }
+  .app-base-component-radio-layer.disabled:hover input[type="radio"] ~ .checkmark {
+    border: 1px solid #B4BBD0; }
+  .app-base-component-radio-layer.disabled input[type="radio"] {
     position: absolute;
     opacity: 0;
     cursor: pointer; }
-    .app-base-component-checkbox-layer input[type="checkbox"]:checked ~ .checkmark {
+    .app-base-component-radio-layer.disabled input[type="radio"] ~ .checkmark {
+      background-color: transparent; }
+    .app-base-component-radio-layer.disabled input[type="radio"]:checked ~ .checkmark {
+      background-color: #82c4f8;
+      border: none; }
+  .app-base-component-radio-layer input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer; }
+    .app-base-component-radio-layer input[type="radio"]:checked ~ .checkmark {
       background-color: #2196F3;
       border: none; }
-      .app-base-component-checkbox-layer input[type="checkbox"]:checked ~ .checkmark:after {
+      .app-base-component-radio-layer input[type="radio"]:checked ~ .checkmark:after {
         display: block; }
-  .app-base-component-checkbox-layer .checkmark {
+  .app-base-component-radio-layer .checkmark {
     position: absolute;
     top: 0;
     left: 0;
     height: 20px;
     width: 20px;
     border: 1px solid #B4BBD0;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px; }
-    .app-base-component-checkbox-layer .checkmark:after {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%; }
+    .app-base-component-radio-layer .checkmark:after {
       content: "";
       position: absolute;
-      display: none; }
-    .app-base-component-checkbox-layer .checkmark:after {
-      left: 10px;
-      top: 2px;
-      width: 7px;
-      height: 13px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg); }
-  .app-base-component-checkbox-layer:hover input[type="checkbox"] ~ .checkmark {
-    background-color: #2196F3;
-    border: none; }
+      display: none;
+      left: 5px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      background: white;
+      -webkit-border-radius: 100%;
+      -moz-border-radius: 100%;
+      border-radius: 100%; }
+    .app-base-component-radio-layer .checkmark.error-checkmark {
+      border-color: #F71C6C; }
+
+.app-check-container-class {
+  width: 100%;
+  position: relative;
+  padding-top: 40px; }
+  .app-check-container-class > .app-check-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    line-height: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #1D2229; }
+  .app-check-container-class > .app-check-error-container {
+    position: absolute;
+    left: 0;
+    top: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: normal;
+    background: transparent;
+    color: #F2405D;
+    -webkit-transition: 0.3s ease all;
+    -o-transition: 0.3s ease all;
+    transition: 0.3s ease all;
+    margin-top: -20px; }
+    .app-check-container-class > .app-check-error-container + .app-check-title {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: flex-start; }
 
 .app-base-component-button > button {
   font-size: 14px;

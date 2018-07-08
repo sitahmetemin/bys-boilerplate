@@ -1,0 +1,15 @@
+{
+    "tr": {
+        "item": "öğe",
+        "required": "Bu alan boş bırakılamaz",
+        "removeSelection": "Seçimi temizle",
+        "emailRequired": "Bir E-Posta adresi olmalıdır"
+    },
+    "en": {
+        "item": "item",
+        "required": "This field is required",
+        "removeSelection": "Remove selection",
+        "emailRequired": "Enter a valid email address"
+    }
+}
+
